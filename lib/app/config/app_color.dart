@@ -7,7 +7,7 @@ const hintColor = Color(0xFF716E6E);
 const errorColor = Color(0xFFE74343);
 final editableColor = Get.find<AppConfigController>().isDarkMode.value
     ? Colors.white24
-    : Colors.grey.shade100;
+    : Colors.white;
 
 class DarkThemeColor {
   const DarkThemeColor._();
@@ -23,6 +23,6 @@ class LightThemeColor {
 
   static const primaryColor = Color(0xFFEFC75E);
   static const disabledColor = Color(0xFF929292);
-  static const scaffoldBackground = Color(0xffF7F7F7);
+  static const scaffoldBackground = Color(0xffFFFFFF);
   static const bottomBarColor = Color(0xFFFFFFFF);
 }

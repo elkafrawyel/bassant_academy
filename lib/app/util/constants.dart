@@ -3,10 +3,7 @@ import 'package:get/get.dart';
 
 class Constants {
   // Colors
-  static Color kBackgroundColor = const Color(0xFFD2FFF4);
-  static Color kPrimaryColor = const Color(0xFF2D5D70);
-  static Color kSecondaryColor = const Color(0xFF265DAB);
-
+  static Color kClickableTextColor =  const Color(0xffC56D1C);
   // static String mainAppLanguage = 'en';
 
   // static String mainAppLanguage = Get.deviceLocale?.languageCode ?? 'ar';

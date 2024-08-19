@@ -25,6 +25,8 @@ class Res {
 
   static const String iconMale = 'assets/icons/male.svg';
   static const String iconFemale = 'assets/icons/female.svg';
+  static const String iconLogo = 'assets/icons/logo.svg';
+  static const String iconEgypt = 'assets/icons/egypt.svg';
 
   //========================== Images Assets  ===============================
   static const logoImage = "assets/images/launcher/logo.png";

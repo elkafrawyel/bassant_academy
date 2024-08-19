@@ -1,7 +1,6 @@
 Map<String, String> en = {
   'app_name': 'Dr Bassant Academy',
   "login": "Login",
-  "signUp": "SignUp",
   'phoneOrEmail':'Phone Number or Email',
   'name': 'Name',
   'email': 'Email',
@@ -192,4 +191,8 @@ Map<String, String> en = {
   'ends_at': 'Ends at',
   'total_cost': 'Total cost',
   'day': 'day',
+  'choose_country':'Choose country',
+  'choose_university':'Choose University',
+  'choose_college':'Choose college or major',
+  'choose_level':'Choose your level'
 };
