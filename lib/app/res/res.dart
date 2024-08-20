@@ -34,6 +34,7 @@ class Res {
   static const String iconSubjects = 'assets/icons/subjects.svg';
   static const String iconAbout = 'assets/icons/about.svg';
   static const String iconSignOut = 'assets/icons/signout.svg';
+  static const String iconClock = 'assets/icons/clock.svg';
 
   //========================== Images Assets  ===============================
   static const logoImage = "assets/images/launcher/logo.png";

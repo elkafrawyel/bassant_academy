@@ -193,4 +193,6 @@ Map<String, String> ar = {
   'add_subjects': 'إضافة المواد الدراسية',
   'about_academy': 'عن الاكاديمية',
   'app_language': 'لغة التطبيق',
+  'your_study_material': 'المواد الدراسية الخاصة بك',
+  'home_message': 'رحلة الألف ميل تبدأ بخطوة واحدة'
 };
