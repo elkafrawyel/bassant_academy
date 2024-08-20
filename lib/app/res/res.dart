@@ -26,7 +26,14 @@ class Res {
   static const String iconMale = 'assets/icons/male.svg';
   static const String iconFemale = 'assets/icons/female.svg';
   static const String iconLogo = 'assets/icons/logo.svg';
-  static const String iconEgypt = 'assets/icons/egypt.svg';
+  static const String iconNotification = 'assets/icons/notification.svg';
+  static const String iconDrawerLogo = 'assets/icons/drawer_logo.svg';
+  static const String iconHome = 'assets/icons/home.svg';
+  static const String iconProfile = 'assets/icons/profile.svg';
+  static const String iconLanguage = 'assets/icons/language.svg';
+  static const String iconSubjects = 'assets/icons/subjects.svg';
+  static const String iconAbout = 'assets/icons/about.svg';
+  static const String iconSignOut = 'assets/icons/signout.svg';
 
   //========================== Images Assets  ===============================
   static const logoImage = "assets/images/launcher/logo.png";

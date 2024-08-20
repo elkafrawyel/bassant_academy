@@ -187,5 +187,10 @@ Map<String, String> ar = {
   'choose_country': 'أختر الدولة',
   'choose_university': 'أختر الجامعة',
   'choose_college': 'اختر الكلية أو التخصص',
-  'choose_level': 'أختر التخصص الخاص بك'
+  'choose_level': 'أختر التخصص الخاص بك',
+  'choose_subject': 'أختر المواد الدراسية',
+  'hello': 'مرحبا',
+  'add_subjects': 'إضافة المواد الدراسية',
+  'about_academy': 'عن الاكاديمية',
+  'app_language': 'لغة التطبيق',
 };

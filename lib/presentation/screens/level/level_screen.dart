@@ -1,6 +1,8 @@
 import 'package:bassant_academy/app/extensions/space.dart';
+import 'package:bassant_academy/presentation/screens/subjects/subjects_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:get/route_manager.dart';
 
 import '../../widgets/app_widgets/app_progress_button.dart';
 import '../../widgets/app_widgets/app_text.dart';
@@ -63,7 +65,7 @@ class _LevelScreenState extends State<LevelScreen> {
                 if (selectedIndex == -1) {
                   return;
                 } else {
-                  // Get.to(() => const CollegeScreen());
+                  Get.to(() => const SubjectsScreen());
                 }
               },
               child: AppText('continue'.tr),

@@ -1,7 +1,7 @@
 Map<String, String> en = {
   'app_name': 'Dr Bassant Academy',
   "login": "Login",
-  'phoneOrEmail':'Phone Number or Email',
+  'phoneOrEmail': 'Phone Number or Email',
   'name': 'Name',
   'email': 'Email',
   'phone': 'Phone',
@@ -121,13 +121,11 @@ Map<String, String> en = {
   'enter_digits': 'Enter the 4 digit code sent to:',
   'file_code_error': '*Please fill up all the cells properly',
   "don't_receive_code": 'Didn’t receive the SMS?',
-  'code_verify_message':
-      'We\'ve sent a 4 digit code to your phone number. Please enter the verification code.',
+  'code_verify_message': 'We\'ve sent a 4 digit code to your phone number. Please enter the verification code.',
   'new_code': 'Request new code in',
   'reSend': 'Resend',
   'forget_password': 'Forget Password',
-  'write_your_phone':
-      'Write your phone number to send a new verification code.',
+  'write_your_phone': 'Write your phone number to send a new verification code.',
   'create_new_password': 'Create Your New Password',
   'parking': 'Parking',
   'valet': 'Valet',
@@ -154,8 +152,7 @@ Map<String, String> en = {
   'monthly': 'Monthly',
   'yearly': 'Yearly',
   'account_balance': 'Account Balance',
-  'select_one_of_the_following_to_recharge':
-      'Select one of the following options to recharge your account.',
+  'select_one_of_the_following_to_recharge': 'Select one of the following options to recharge your account.',
   'charge_your_account': 'Charge your Account',
   'birthday': 'Birthday',
   'delete': 'Delete',
@@ -191,8 +188,13 @@ Map<String, String> en = {
   'ends_at': 'Ends at',
   'total_cost': 'Total cost',
   'day': 'day',
-  'choose_country':'Choose country',
-  'choose_university':'Choose University',
-  'choose_college':'Choose college or major',
-  'choose_level':'Choose your level'
+  'choose_country': 'Choose country',
+  'choose_university': 'Choose University',
+  'choose_college': 'Choose college or major',
+  'choose_level': 'Choose your level',
+  'choose_subject': 'Choose subject',
+  'hello': 'Hello',
+  'add_subjects':'Add Subjects',
+  'about_academy':'About Academy',
+  'app_language':'App Language',
 };

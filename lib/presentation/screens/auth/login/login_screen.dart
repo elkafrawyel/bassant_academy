@@ -104,7 +104,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future _login(AnimationController animationController) async {
-    Get.to(() => CountryScreen());
+
+    Get.find<AppConfigController>().isLoggedIn.value = true;
+    // Get.to(() => CountryScreen());
     return;
 
 
