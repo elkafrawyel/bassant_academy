@@ -132,7 +132,7 @@ Map<String, String> ar = {
   'your_cars': 'سياراتك',
   'dark_mode': 'الوضع الليلي',
   'help': 'المساعدة',
-  'profile': 'الملف الشخصي',
+  'profile': 'الحساب الشخصي',
   'logout_message': 'هل أنت متأكد أنك تريد تسجيل الخروج؟',
   'add_car': 'أضافة سيارة جديدة',
   'car_title': 'إسم السيارة',
@@ -194,5 +194,6 @@ Map<String, String> ar = {
   'about_academy': 'عن الاكاديمية',
   'app_language': 'لغة التطبيق',
   'your_study_material': 'المواد الدراسية الخاصة بك',
-  'home_message': 'رحلة الألف ميل تبدأ بخطوة واحدة'
+  'home_message': 'رحلة الألف ميل تبدأ بخطوة واحدة',
+  'edit_profile': 'تعديل الحساب الشخصي',
 };

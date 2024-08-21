@@ -21,6 +21,7 @@ class Res {
 
   //========================== Icons Assets  ===============================
   static const String iconPhone = 'assets/icons/phone.svg';
+  static const String iconEmail = 'assets/icons/email.svg';
   static const String iconPassword = 'assets/icons/password.svg';
 
   static const String iconMale = 'assets/icons/male.svg';
@@ -35,6 +36,7 @@ class Res {
   static const String iconAbout = 'assets/icons/about.svg';
   static const String iconSignOut = 'assets/icons/signout.svg';
   static const String iconClock = 'assets/icons/clock.svg';
+  static const String iconEdit = 'assets/icons/edit.svg';
 
   //========================== Images Assets  ===============================
   static const logoImage = "assets/images/launcher/logo.png";

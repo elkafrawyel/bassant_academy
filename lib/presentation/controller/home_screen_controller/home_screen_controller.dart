@@ -19,7 +19,7 @@ class HomeScreenController extends GeneralController {
 
   Future<void> getSubjects() async {
     operationReply = OperationReply.loading();
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 4));
     subjects = [
       {
         'name': 'مادة الهستولوجيا',

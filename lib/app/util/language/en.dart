@@ -198,5 +198,6 @@ Map<String, String> en = {
   'about_academy':'About Academy',
   'app_language':'App Language',
   'your_study_material':'Your study materials',
-  'home_message':'A journey of a thousand miles begins with a single step.'
+  'home_message':'A journey of a thousand miles begins with a single step.',
+  'edit_profile':'Edit Profile',
 };
