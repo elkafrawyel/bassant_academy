@@ -1,6 +1,8 @@
 import 'package:bassant_academy/app/extensions/space.dart';
+import 'package:bassant_academy/presentation/controller/home_screen_controller/home_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import '../../../../app/res/res.dart';
@@ -93,45 +95,46 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: Padding(
                   padding: const EdgeInsets.all(18.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const AppCachedImage(
-                            imageUrl:
-                                'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/1024px-Flag_of_Egypt.svg.png',
-                            width: 30,
-                            height: 25,
-                            radius: 8,
-                          ),
-                          10.pw,
-                          const AppText(
-                            'مصر , جامعة المنصورة',
-                            fontSize: 16,
-                          )
-                        ],
-                      ),
-                      10.ph,
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const AppText(
-                            'كلية الطب البشري , ',
-                            fontSize: 16,
-                          ),
-                          AppText(
-                            'الفرقة الرابعة',
-                            color: Constants.kClickableTextColor,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+                  child: GetBuilder<HomeScreenController>(builder: (homeScreenController) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            AppCachedImage(
+                              imageUrl: homeScreenController.countryImage,
+                              width: 30,
+                              height: 25,
+                              radius: 8,
+                            ),
+                            10.pw,
+                            AppText(
+                              '${homeScreenController.countryName} , ${homeScreenController.universityName}',
+                              fontSize: 16,
+                            )
+                          ],
+                        ),
+                        10.ph,
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            AppText(
+                              '${homeScreenController.collegeName}, ',
+                              fontSize: 16,
+                            ),
+                            AppText(
+                              homeScreenController.levelName,
+                              color: Constants.kClickableTextColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ],
+                        )
+                      ],
+                    );
+                  }),
                 ),
               ),
             ),

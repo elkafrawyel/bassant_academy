@@ -13,7 +13,7 @@ Map<String, String> ar = {
   'female': 'أنثي',
   'cancel': 'الغاء',
   'save': 'حفظ',
-  'change': 'تغيير',
+  'change': 'تعديل',
   'manage_your_account': 'أدارة ملفك الشخصي',
   'settings': 'اﻷعدادات',
   'language': 'اللغة',

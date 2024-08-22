@@ -61,7 +61,12 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                             width: 90,
                             height: 90,
                           ),
-                          const Expanded(child: AppText('التشريح الآدمى وعلم الاجنة')),
+                          const Expanded(
+                            child: AppText(
+                              'التشريح الآدمى وعلم الاجنة',
+                              maxLines: 3,
+                            ),
+                          ),
                           Transform.scale(
                             scale: 1.5,
                             child: Checkbox(

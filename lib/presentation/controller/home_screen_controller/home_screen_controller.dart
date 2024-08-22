@@ -2,13 +2,17 @@ import 'package:bassant_academy/app/util/operation_reply.dart';
 import 'package:bassant_academy/presentation/controller/general_controller.dart';
 import 'package:fcm_config/fcm_config.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../../../app/util/util.dart';
 import '../../../firebase_options.dart';
 
 class HomeScreenController extends GeneralController {
   List subjects = [];
+
+  String countryImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/1024px-Flag_of_Egypt.svg.png';
+  String countryName = 'Egypt';
+  String universityName = 'Mansoura';
+  String collegeName = 'Computer Science';
+  String levelName = 'Level 4';
 
   @override
   void onInit() async {

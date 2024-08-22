@@ -1,6 +1,7 @@
 import 'package:bassant_academy/app/extensions/space.dart';
 import 'package:bassant_academy/app/res/res.dart';
 import 'package:bassant_academy/app/util/constants.dart';
+import 'package:bassant_academy/presentation/screens/add_subjects/add_subjects_screen.dart';
 import 'package:bassant_academy/presentation/screens/profile/profile_screen.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/language_views/app_language_row.dart';
@@ -64,6 +65,10 @@ class SideMenu extends StatelessWidget {
               ),
             ),
             ListTile(
+              onTap: () {
+                Get.back();
+                Get.to(() => const AddSubjectsScreen());
+              },
               leading: SvgPicture.asset(
                 Res.iconSubjects,
                 width: 25,

@@ -1,18 +1,25 @@
 import 'package:bassant_academy/app/extensions/space.dart';
 import 'package:bassant_academy/app/res/res.dart';
 import 'package:bassant_academy/app/util/constants.dart';
+import 'package:bassant_academy/presentation/controller/home_screen_controller/home_screen_controller.dart';
 import 'package:bassant_academy/presentation/screens/edit_profile/edit_profile_screen.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/route_manager.dart';
 
 import '../../widgets/app_widgets/app_cached_image.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +32,10 @@ class ProfileScreen extends StatelessWidget {
         actions: [
           GestureDetector(
             onTap: () async {
-              bool result = await Get.to(() => const EditProfileScreen());
+              bool? result = await Get.to(() => const EditProfileScreen());
+              if (result ?? false) {
+                setState(() {});
+              }
             },
             child: SvgPicture.asset(
               Res.iconEdit,
@@ -112,39 +122,42 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             30.ph,
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const AppCachedImage(
-                  imageUrl:
-                      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/1024px-Flag_of_Egypt.svg.png',
-                  width: 30,
-                  height: 25,
-                  radius: 8,
-                ),
-                10.pw,
-                const AppText(
-                  'مصر , جامعة المنصورة',
-                  fontSize: 16,
-                )
-              ],
-            ),
+            GetBuilder<HomeScreenController>(builder: (homeScreenController) {
+              return Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AppCachedImage(
+                    imageUrl: homeScreenController.countryImage,
+                    width: 30,
+                    height: 25,
+                    radius: 8,
+                  ),
+                  10.pw,
+                  AppText(
+                    '${homeScreenController.countryName} , ${homeScreenController.universityName}',
+                    fontSize: 16,
+                  )
+                ],
+              );
+            }),
             10.ph,
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const AppText(
-                  'كلية الطب البشري , ',
-                  fontSize: 16,
-                ),
-                AppText(
-                  'الفرقة الرابعة',
-                  color: Constants.kClickableTextColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ],
-            )
+            GetBuilder<HomeScreenController>(builder: (homeScreenController) {
+              return Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AppText(
+                    '${homeScreenController.collegeName} , ',
+                    fontSize: 16,
+                  ),
+                  AppText(
+                    homeScreenController.levelName,
+                    color: Constants.kClickableTextColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ],
+              );
+            })
           ],
         ),
       ),
