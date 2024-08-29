@@ -5,9 +5,9 @@ class Environment {
     switch (appMode) {
       case AppMode.testing:
       case AppMode.staging:
-        return 'https://portal.profitsway.net/New_Parking/api/';
+        return 'http://mohammedzakii-001-site3.htempurl.com/api/';
       case AppMode.live:
-        return 'https://portal.profitsway.net/New_Parking/api/';
+        return 'http://mohammedzakii-001-site3.htempurl.com/api/';
     }
   }
 }

@@ -1,14 +1,13 @@
 import 'package:bassant_academy/app/config/app_color.dart';
 import 'package:bassant_academy/app/extensions/space.dart';
 import 'package:bassant_academy/app/util/constants.dart';
-import 'package:bassant_academy/presentation/controller/home_screen_controller/home_screen_controller.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_drop_menu.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_progress_button.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
+import '../../controller/home_screen/home_screen_controller.dart';
 import '../../widgets/app_widgets/app_cached_image.dart';
 
 class AddSubjectsScreen extends StatefulWidget {
@@ -107,8 +106,11 @@ class _AddSubjectsScreenState extends State<AddSubjectsScreen> {
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           side: BorderSide(
-                            color: selectedSubjectsIds.contains(index) ? Theme.of(context).primaryColor : Colors.black,
-                            width: selectedSubjectsIds.contains(index) ? 2 : 0.1,
+                            color: selectedSubjectsIds.contains(index)
+                                ? Theme.of(context).primaryColor
+                                : Colors.black,
+                            width:
+                                selectedSubjectsIds.contains(index) ? 2 : 0.1,
                           ),
                           borderRadius: BorderRadius.circular(kRadius),
                         ),
@@ -140,8 +142,10 @@ class _AddSubjectsScreenState extends State<AddSubjectsScreen> {
                                   ),
                                   fillColor: selectedSubjectsIds.contains(index)
                                       ? null
-                                      : WidgetStatePropertyAll<Color>(Colors.grey.shade100),
-                                  visualDensity: const VisualDensity(horizontal: -4.0, vertical: -4.0),
+                                      : MaterialStateProperty.all(
+                                          Colors.grey.shade100),
+                                  visualDensity: const VisualDensity(
+                                      horizontal: -4.0, vertical: -4.0),
                                   onChanged: (bool? value) {},
                                 ),
                               ),

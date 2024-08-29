@@ -3,16 +3,20 @@ import 'package:bassant_academy/app/res/res.dart';
 import 'package:bassant_academy/app/util/constants.dart';
 import 'package:bassant_academy/presentation/controller/app_config_controller.dart';
 import 'package:bassant_academy/presentation/screens/auth/register/register_screen.dart';
-import 'package:bassant_academy/presentation/screens/country/country_screen.dart';
-import 'package:bassant_academy/presentation/screens/home/home_screen.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_progress_button.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text_field/app_text_field.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:fcm_config/fcm_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
+
+import '../../../../app/util/information_viewer.dart';
+import '../../../../app/util/operation_reply.dart';
+import '../../../../app/util/util.dart';
+import '../../../../data/entities/auth_response.dart';
+import '../../../../data/providers/network/api_provider.dart';
+import '../../../../data/providers/storage/local_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,10 +26,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final GlobalKey<AppTextFormFieldState> phoneState = GlobalKey<AppTextFormFieldState>();
-  final GlobalKey<AppTextFormFieldState> passwordState = GlobalKey<AppTextFormFieldState>();
+  final GlobalKey<AppTextFormFieldState> emailState =
+      GlobalKey<AppTextFormFieldState>();
+  final GlobalKey<AppTextFormFieldState> passwordState =
+      GlobalKey<AppTextFormFieldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +57,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               AppTextFormField(
-                key: phoneState,
-                controller: phoneController,
+                key: emailState,
+                controller: emailController,
                 hintText: 'phoneOrEmail'.tr,
                 appFieldType: AppFieldType.text,
                 // prefixIcon: Res.iconPhone,
@@ -104,23 +110,48 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future _login(AnimationController animationController) async {
-
-    Get.find<AppConfigController>().isLoggedIn.value = true;
-    // Get.to(() => CountryScreen());
-    return;
-
-
-
-
-
-    if (phoneController.text.isEmpty || (phoneState.currentState?.hasError ?? false)) {
-      phoneState.currentState?.shake();
+    passwordState.currentState?.updateHelperText('');
+    if (emailController.text.isEmpty ||
+        (emailState.currentState?.hasError ?? false)) {
+      emailState.currentState?.shake();
       return;
-    } else if (passwordController.text.isEmpty || (passwordState.currentState?.hasError ?? false)) {
+    } else if (passwordController.text.isEmpty ||
+        (passwordState.currentState?.hasError ?? false)) {
       passwordState.currentState?.shake();
       return;
     } else {
-      Get.find<AppConfigController>().isLoggedIn.value = true;
+      animationController.forward();
+      String? deviceId = await Utils.getUniqueDeviceId();
+      String? firebaseToken = await FCMConfig.instance.messaging.getToken();
+      OperationReply operationReply = await APIProvider.instance.post(
+        endPoint: Res.apiLogin,
+        fromJson: AuthResponse.fromJson,
+        requestBody: {
+          'email': emailController.text,
+          'password': passwordController.text,
+          'DeviceId': deviceId,
+          'FcmToken': firebaseToken,
+        },
+      );
+
+      if (operationReply.isSuccess()) {
+        AuthResponse authResponse = operationReply.result;
+        if (authResponse.isAuthenticated ?? false) {
+          animationController.reverse();
+
+          await LocalProvider()
+              .save(LocalProviderKeys.apiToken, authResponse.token);
+          await LocalProvider()
+              .save(LocalProviderKeys.userId, authResponse.userId);
+          Get.find<AppConfigController>().isLoggedIn.value = true;
+        }
+      } else {
+        animationController.reverse();
+        passwordState.currentState?.updateHelperText(operationReply.message);
+        InformationViewer.showSnackBar(
+          operationReply.message,
+        );
+      }
     }
   }
 }

@@ -29,8 +29,9 @@ class APIProvider {
         HttpHeaders.cacheControlHeader: 'no-Cache',
         HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
         HttpHeaders.authorizationHeader:
-            'Bearer ${LocalProvider().getUser()?.token ?? 'No Token Found'}',
-        HttpHeaders.acceptLanguageHeader: LocalProvider().getAppLanguage()
+            'Bearer ${LocalProvider().apiToken() ?? 'No Token Found'}',
+        HttpHeaders.acceptLanguageHeader:
+            LocalProvider().getAppLanguage() == 'ar' ? 'ar-EG' : 'en-US'
       },
       followRedirects: false,
       validateStatus: (status) => status! <= 500,

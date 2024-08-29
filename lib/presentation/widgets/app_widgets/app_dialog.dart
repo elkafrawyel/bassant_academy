@@ -51,6 +51,8 @@ void scaleDialog({
   String? cancelText,
   VoidCallback? onConfirmClick,
   VoidCallback? onCancelClick,
+  Color cancelColor = Colors.red,
+  Color confirmColor = Colors.black,
   bool barrierDismissible = false,
   Color? backgroundColor,
   double? height,
@@ -73,27 +75,34 @@ void scaleDialog({
           backgroundColor:
               backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(radius)),
+            borderRadius: BorderRadius.circular(radius),
+          ),
           insetPadding: EdgeInsets.symmetric(
-              horizontal: horizontalMargin, vertical: 12.0),
+            horizontal: horizontalMargin,
+            vertical: 12.0,
+          ),
           contentPadding: contentPadding,
           actions: <Widget>[
             if (onConfirmClick != null)
               TextButton(
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: onConfirmClick,
                 child: Text(
                   confirmText ?? "Confirm",
-                  style: const TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: confirmColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             if (onCancelClick != null)
               TextButton(
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: onCancelClick,
                 child: Text(
                   cancelText ?? "Cancel",
-                  style: const TextStyle(
-                      color: Colors.red, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    color: cancelColor,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               )
           ],

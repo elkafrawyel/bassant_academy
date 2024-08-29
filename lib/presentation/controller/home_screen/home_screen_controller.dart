@@ -1,24 +1,36 @@
 import 'package:bassant_academy/app/util/operation_reply.dart';
-import 'package:bassant_academy/presentation/controller/general_controller.dart';
-import 'package:fcm_config/fcm_config.dart';
-import 'package:firebase_core/firebase_core.dart';
-import '../../../app/util/util.dart';
-import '../../../firebase_options.dart';
+import 'package:bassant_academy/presentation/screens/country/country_screen.dart';
+import 'package:get/route_manager.dart';
+
+import '../my_controllers/general_controller.dart';
 
 class HomeScreenController extends GeneralController {
   List subjects = [];
 
-  String countryImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/1024px-Flag_of_Egypt.svg.png';
+  String countryImage =
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/1024px-Flag_of_Egypt.svg.png';
   String countryName = 'Egypt';
   String universityName = 'Mansoura';
   String collegeName = 'Computer Science';
   String levelName = 'Level 4';
 
+  bool firstLogin = true;
+
   @override
   void onInit() async {
     super.onInit();
-    initializeNotifications();
-    getSubjects();
+
+    init();
+  }
+
+  void init() async {
+    await Future.delayed(Duration(seconds: 1), () {
+      if (firstLogin) {
+        Get.to(() => const CountryScreen());
+      } else {
+        getSubjects();
+      }
+    });
   }
 
   Future<void> getSubjects() async {
@@ -62,32 +74,8 @@ class HomeScreenController extends GeneralController {
     operationReply = OperationReply.success();
   }
 
-  Future initializeNotifications() async {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-
-    await FCMConfig.instance.init(
-      onBackgroundMessage: _firebaseMessagingBackgroundHandler,
-      defaultAndroidChannel: const AndroidNotificationChannel(
-        'com.bassant.academy',
-        'Bassant Academy',
-      ),
-    );
-
-    FCMConfig.instance.messaging.getToken().then((token) {
-      Utils.logMessage('Firebase Token:$token');
-    });
-  }
-
   @override
   Future<void> refreshApiCall() async {
     await getSubjects();
   }
-}
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  Utils.logMessage("Handling a background message: ${message.messageId}");
-  // Get.find<HomeScreenController>().handleRemoteMessage(message);
 }

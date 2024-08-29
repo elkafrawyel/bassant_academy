@@ -414,12 +414,12 @@ class AppTextFormFieldState extends State<AppTextFormField> {
   ];
 
   final List<AuthFormRule> passwordRules = [
-    AuthFormRule(
-      ruleText: 'min_6_char'.tr,
-      condition: (value) {
-        return value.length >= 6;
-      },
-    ),
+    // AuthFormRule(
+    //   ruleText: 'min_6_char'.tr,
+    //   condition: (value) {
+    //     return value.length >= 6;
+    //   },
+    // ),
     // AuthFormRule(
     //   ruleText: '1Lowercase'.tr,
     //   condition: (value) {

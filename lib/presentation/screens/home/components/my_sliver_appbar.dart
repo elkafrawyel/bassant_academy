@@ -1,12 +1,12 @@
 import 'package:bassant_academy/app/extensions/space.dart';
-import 'package:bassant_academy/presentation/controller/home_screen_controller/home_screen_controller.dart';
+import 'package:bassant_academy/presentation/screens/notifications/notifications_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import '../../../../app/res/res.dart';
 import '../../../../app/util/constants.dart';
+import '../../../controller/home_screen/home_screen_controller.dart';
 import '../../../widgets/app_widgets/app_cached_image.dart';
 import '../../../widgets/app_widgets/app_text.dart';
 
@@ -20,7 +20,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
   });
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     bool expanded = shrinkOffset / expandedHeight == 0;
 
     return Stack(
@@ -62,7 +63,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                       fontWeight: FontWeight.w700,
                     ),
                     Container(
-                      constraints: BoxConstraints(maxWidth: MediaQuery.sizeOf(context).width / 2),
+                      constraints: BoxConstraints(
+                          maxWidth: MediaQuery.sizeOf(context).width / 2),
                       child: AppText(
                         "home_message".tr,
                         color: Colors.white,
@@ -75,10 +77,15 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                 ),
               ),
               const Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SvgPicture.asset(
-                  Res.iconNotification,
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => NotificationsScreen());
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SvgPicture.asset(
+                    Res.iconNotification,
+                  ),
                 ),
               )
             ],
@@ -95,7 +102,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: Padding(
                   padding: const EdgeInsets.all(18.0),
-                  child: GetBuilder<HomeScreenController>(builder: (homeScreenController) {
+                  child: GetBuilder<HomeScreenController>(
+                      builder: (homeScreenController) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class Constants {
   // Colors
-  static Color kClickableTextColor =  const Color(0xffC56D1C);
+  static Color kClickableTextColor = const Color(0xffC56D1C);
   // static String mainAppLanguage = 'en';
 
   // static String mainAppLanguage = Get.deviceLocale?.languageCode ?? 'ar';

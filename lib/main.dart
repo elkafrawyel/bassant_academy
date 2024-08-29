@@ -1,9 +1,13 @@
 import 'dart:io';
 
+import 'package:fcm_config/fcm_config.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'app/util/util.dart';
 import 'data/providers/storage/local_provider.dart';
+import 'firebase_options.dart';
 import 'presentation/app.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -20,7 +24,7 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -34,6 +38,30 @@ void main() async {
   );
 
   await LocalProvider().init();
+  await initializeNotifications();
 
   runApp(const App());
+}
+
+Future initializeNotifications() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await FCMConfig.instance.init(
+    onBackgroundMessage: _firebaseMessagingBackgroundHandler,
+    defaultAndroidChannel: const AndroidNotificationChannel(
+      'com.bassant.academy',
+      'Bassant Academy',
+    ),
+  );
+
+  FCMConfig.instance.messaging.getToken().then((token) {
+    Utils.logMessage('Firebase Token:$token');
+  });
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  Utils.logMessage("Handling a background message: ${message.messageId}");
 }

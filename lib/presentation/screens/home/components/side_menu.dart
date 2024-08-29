@@ -1,6 +1,7 @@
 import 'package:bassant_academy/app/extensions/space.dart';
 import 'package:bassant_academy/app/res/res.dart';
 import 'package:bassant_academy/app/util/constants.dart';
+import 'package:bassant_academy/data/providers/storage/local_provider.dart';
 import 'package:bassant_academy/presentation/screens/add_subjects/add_subjects_screen.dart';
 import 'package:bassant_academy/presentation/screens/profile/profile_screen.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
@@ -8,7 +9,8 @@ import 'package:bassant_academy/presentation/widgets/app_widgets/language_views/
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
+
+import '../../../widgets/app_widgets/app_dialog.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({super.key});
@@ -110,36 +112,60 @@ class SideMenu extends StatelessWidget {
             20.ph,
             const AppLanguageRow(),
             40.ph,
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      Res.iconSignOut,
-                      width: 25,
-                      height: 25,
-                    ),
-                    10.pw,
-                    AppText(
-                      'logout'.tr,
-                      color: Constants.kClickableTextColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    )
-                  ],
+            GestureDetector(
+              onTap: () => _singOut(context),
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        Res.iconSignOut,
+                        width: 25,
+                        height: 25,
+                      ),
+                      10.pw,
+                      AppText(
+                        'logout'.tr,
+                        color: Constants.kClickableTextColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      )
+                    ],
+                  ),
                 ),
               ),
             )
           ],
         ),
       ),
+    );
+  }
+
+  void _singOut(BuildContext context) async {
+    scaleDialog(
+      context: context,
+      content: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: AppText(
+          'logout_message'.tr,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      cancelText: 'cancel'.tr,
+      onCancelClick: Get.back,
+      confirmText: 'logout'.tr,
+      onConfirmClick: LocalProvider().signOut,
+      barrierDismissible: true,
+      cancelColor: Colors.black,
+      confirmColor: Colors.red,
     );
   }
 }

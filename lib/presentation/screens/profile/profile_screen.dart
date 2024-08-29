@@ -1,15 +1,13 @@
 import 'package:bassant_academy/app/extensions/space.dart';
 import 'package:bassant_academy/app/res/res.dart';
 import 'package:bassant_academy/app/util/constants.dart';
-import 'package:bassant_academy/presentation/controller/home_screen_controller/home_screen_controller.dart';
 import 'package:bassant_academy/presentation/screens/edit_profile/edit_profile_screen.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:get/route_manager.dart';
 
+import '../../controller/home_screen/home_screen_controller.dart';
 import '../../widgets/app_widgets/app_cached_image.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -57,7 +55,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -81,7 +80,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -105,7 +105,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

@@ -1,16 +1,12 @@
 import 'package:bassant_academy/app/extensions/space.dart';
-import 'package:bassant_academy/app/res/res.dart';
-import 'package:bassant_academy/app/util/constants.dart';
-import 'package:bassant_academy/presentation/controller/home_screen_controller/home_screen_controller.dart';
 import 'package:bassant_academy/presentation/screens/home/components/app_horizontal_list_view.dart';
 import 'package:bassant_academy/presentation/screens/home/components/app_shimmer_horizontal_list_view.dart';
 import 'package:bassant_academy/presentation/screens/home/components/side_menu.dart';
-import 'package:bassant_academy/presentation/widgets/app_widgets/app_cached_image.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../controller/home_screen/home_screen_controller.dart';
 import 'components/my_sliver_appbar.dart';
 
 class HomeScreen extends StatefulWidget {

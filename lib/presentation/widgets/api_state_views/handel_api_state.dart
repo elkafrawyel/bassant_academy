@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/util/operation_reply.dart';
-import '../../controller/general_controller.dart';
+import '../../controller/my_controllers/general_controller.dart';
 import 'api_connection_error_view.dart';
 import 'api_empty_view.dart';
 import 'api_error_view.dart';

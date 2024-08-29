@@ -1,14 +1,20 @@
 import 'package:bassant_academy/app/extensions/space.dart';
-import 'package:bassant_academy/app/util/constants.dart';
+import 'package:bassant_academy/app/util/information_viewer.dart';
+import 'package:bassant_academy/app/util/operation_reply.dart';
 import 'package:bassant_academy/app/util/util.dart';
+import 'package:bassant_academy/data/providers/network/api_provider.dart';
+import 'package:bassant_academy/data/providers/storage/local_provider.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_progress_button.dart';
-import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text_field/app_text_field.dart';
+import 'package:fcm_config/fcm_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:get/instance_manager.dart';
 
 import '../../../../app/res/res.dart';
+import '../../../../data/entities/auth_response.dart';
+import '../../../controller/app_config_controller.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -19,16 +25,20 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController nameController = TextEditingController();
-  final GlobalKey<AppTextFormFieldState> nameKey = GlobalKey<AppTextFormFieldState>();
+  final GlobalKey<AppTextFormFieldState> nameKey =
+      GlobalKey<AppTextFormFieldState>();
 
   final TextEditingController emailController = TextEditingController();
-  final GlobalKey<AppTextFormFieldState> emailKey = GlobalKey<AppTextFormFieldState>();
+  final GlobalKey<AppTextFormFieldState> emailKey =
+      GlobalKey<AppTextFormFieldState>();
 
   final TextEditingController phoneController = TextEditingController();
-  final GlobalKey<AppTextFormFieldState> phoneKey = GlobalKey<AppTextFormFieldState>();
+  final GlobalKey<AppTextFormFieldState> phoneKey =
+      GlobalKey<AppTextFormFieldState>();
 
   final TextEditingController passwordController = TextEditingController();
-  final GlobalKey<AppTextFormFieldState> passwordKey = GlobalKey<AppTextFormFieldState>();
+  final GlobalKey<AppTextFormFieldState> passwordKey =
+      GlobalKey<AppTextFormFieldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -92,21 +102,57 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future _signUp(AnimationController animationController) async {
-    String? deviceId = await Utils.getUniqueDeviceId();
-    print('Device ID: $deviceId');
-    return;
-    if (nameController.text.isEmpty || (nameKey.currentState?.hasError ?? false)) {
+    passwordKey.currentState?.updateHelperText('');
+    if (nameController.text.isEmpty ||
+        (nameKey.currentState?.hasError ?? false)) {
       nameKey.currentState?.shake();
       return;
-    } else if (emailController.text.isEmpty || (emailKey.currentState?.hasError ?? false)) {
+    } else if (emailController.text.isEmpty ||
+        (emailKey.currentState?.hasError ?? false)) {
       emailKey.currentState?.shake();
       return;
-    } else if (phoneController.text.isEmpty || (phoneKey.currentState?.hasError ?? false)) {
+    } else if (phoneController.text.isEmpty ||
+        (phoneKey.currentState?.hasError ?? false)) {
       phoneKey.currentState?.shake();
       return;
-    } else if (passwordController.text.isEmpty || (passwordKey.currentState?.hasError ?? false)) {
+    } else if (passwordController.text.isEmpty ||
+        (passwordKey.currentState?.hasError ?? false)) {
       passwordKey.currentState?.shake();
       return;
-    } else {}
+    } else {
+      animationController.forward();
+      String? deviceId = await Utils.getUniqueDeviceId();
+      String? firebaseToken = await FCMConfig.instance.messaging.getToken();
+      OperationReply operationReply = await APIProvider.instance.post(
+        endPoint: Res.apiRegister,
+        fromJson: AuthResponse.fromJson,
+        requestBody: {
+          'username': nameController.text,
+          'email': emailController.text,
+          'password': passwordController.text,
+          'phone': phoneController.text,
+          'DeviceId': deviceId,
+          'FcmToken': firebaseToken,
+        },
+      );
+
+      if (operationReply.isSuccess()) {
+        AuthResponse authResponse = operationReply.result;
+        if (authResponse.isAuthenticated ?? false) {
+          animationController.reverse();
+          await LocalProvider()
+              .save(LocalProviderKeys.apiToken, authResponse.token);
+          await LocalProvider()
+              .save(LocalProviderKeys.userId, authResponse.userId);
+          Get.find<AppConfigController>().isLoggedIn.value = true;
+        }
+      } else {
+        animationController.reverse();
+        passwordKey.currentState?.updateHelperText(operationReply.message);
+        InformationViewer.showSnackBar(
+          operationReply.message,
+        );
+      }
+    }
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +12,8 @@ class LanguageData {
 
   static LanguageData selectedLanguage = languageList()
       .where((element) =>
-          element.languageCode.toLowerCase() == (Get.locale?.languageCode.toLowerCase() ?? Constants.mainAppLanguage))
+          element.languageCode.toLowerCase() ==
+          (Get.locale?.languageCode.toLowerCase() ?? Constants.mainAppLanguage))
       .first;
 
   LanguageData(this.flag, this.name, this.languageCode);

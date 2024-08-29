@@ -14,8 +14,39 @@ class NetworkHelper {
   }
 
   static Future<bool> isConnected() async {
-    ConnectivityResult connectivityResult = (await Connectivity().checkConnectivity()) as ConnectivityResult;
-    return connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi;
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+    // This condition is for demo purposes only to explain every connection type.
+    // Use conditions which work for your requirements.
+    if (connectivityResult.contains(ConnectivityResult.mobile)) {
+      // Mobile network available.
+      return true;
+    } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
+      // Wi-fi is available.
+      // Note for Android:
+      // When both mobile and Wi-Fi are turned on system will return Wi-Fi only as active network type
+      return true;
+    } else if (connectivityResult.contains(ConnectivityResult.ethernet)) {
+      // Ethernet connection available.
+      return true;
+    } else if (connectivityResult.contains(ConnectivityResult.vpn)) {
+      // Vpn connection active.
+      // Note for iOS and macOS:
+      // There is no separate network interface type for [vpn].
+      // It returns [other] on any device (also simulator)
+      return true;
+    } else if (connectivityResult.contains(ConnectivityResult.bluetooth)) {
+      // Bluetooth connection available.
+      return false;
+    } else if (connectivityResult.contains(ConnectivityResult.other)) {
+      // Connected to a network which is not in the above mentioned networks.
+      return false;
+    } else if (connectivityResult.contains(ConnectivityResult.none)) {
+      // No available network types
+      return false;
+    } else {
+      return false;
+    }
   }
 
   ///Don't forget to cast it to function return type using [as] method
@@ -34,7 +65,9 @@ class NetworkHelper {
           errorMessage = errorMessage + errors.first.toString();
         });
         return OperationReply(OperationStatus.failed, message: errorMessage);
-      } else if (body != null && body['message'] != null && body['message'].length < 255) {
+      } else if (body != null &&
+          body['message'] != null &&
+          body['message'].length < 255) {
         if (body['message'].toString().contains('Unauthenticated')) {
           LocalProvider().signOut();
           return OperationReply(
@@ -45,7 +78,8 @@ class NetworkHelper {
         String errorMessage = '';
         if (body['message'].toString().isNotEmpty) {
           errorMessage = body['message'].toString();
-        } else if (body['exception'] != null && body['exception'].toString().isNotEmpty) {
+        } else if (body['exception'] != null &&
+            body['exception'].toString().isNotEmpty) {
           errorMessage = body['exception'].toString();
         }
         return OperationReply.failed(message: errorMessage);
@@ -56,14 +90,17 @@ class NetworkHelper {
           return OperationReply(OperationStatus.failed, message: errorMessage);
         } else {
           Map<String, dynamic> errorMap = body['error'];
-          errorMap.forEach((key, value) => errorMessage = errorMessage + value.toString());
+          errorMap.forEach(
+              (key, value) => errorMessage = errorMessage + value.toString());
           return OperationReply(OperationStatus.failed, message: errorMessage);
         }
       } else {
-        return OperationReply.failed(message: isAr ? 'حدث خطأ ما' : 'General Error');
+        return OperationReply.failed(
+            message: isAr ? 'حدث خطأ ما' : 'General Error');
       }
     } catch (e) {
-      return OperationReply.failed(message: isAr ? 'حدث خطأ ما' : 'General Error');
+      return OperationReply.failed(
+          message: isAr ? 'حدث خطأ ما' : 'General Error');
     }
   }
 }
