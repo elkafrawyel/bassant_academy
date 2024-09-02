@@ -1,86 +1,23 @@
-
 class UserModel {
   UserModel({
     this.id,
-    this.client,
     this.name,
+    this.isFirstLogin,
     this.email,
     this.phone,
-    this.gender,
-    this.birthday,
-    this.isVerified,
-    this.isCompleted,
-    this.token,
-    this.createdAt,
   });
 
   UserModel.fromJson(dynamic json) {
     id = json['id'];
-    client = json['client'];
     name = json['name'];
+    isFirstLogin = json['isFirstLogin'];
     email = json['email'];
     phone = json['phone'];
-    gender = json['gender'];
-    birthday = json['birthday'];
-    isVerified = json['is_verified'];
-    isCompleted = json['is_completed'];
-    token = json['token'];
-    createdAt = json['created_at'];
   }
 
   String? id;
-  dynamic client;
   String? name;
+  bool? isFirstLogin;
   String? email;
   String? phone;
-  dynamic gender;
-  dynamic birthday;
-  bool? isVerified;
-  bool? isCompleted;
-  String? token;
-  String? createdAt;
-
-  UserModel copyWith({
-    String? id,
-    dynamic client,
-    String? name,
-    String? email,
-    String? phone,
-    dynamic gender,
-    dynamic birthday,
-    bool? isVerified,
-    bool? isCompleted,
-    String? token,
-    String? createdAt,
-  }) =>
-      UserModel(
-        id: id ?? this.id,
-        client: client ?? this.client,
-        name: name ?? this.name,
-        email: email ?? this.email,
-        phone: phone ?? this.phone,
-        gender: gender ?? this.gender,
-        birthday: birthday ?? this.birthday,
-        isVerified: isVerified ?? this.isVerified,
-        isCompleted: isCompleted ?? this.isCompleted,
-        token: token ?? this.token,
-        createdAt: createdAt ?? this.createdAt,
-      );
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['client'] = client;
-    map['name'] = name;
-    map['email'] = email;
-    map['phone'] = phone;
-    map['gender'] = gender;
-    map['birthday'] = birthday;
-    map['is_verified'] = isVerified;
-    map['is_completed'] = isCompleted;
-    map['token'] = token;
-
-    map['created_at'] = createdAt;
-    return map;
-  }
 }

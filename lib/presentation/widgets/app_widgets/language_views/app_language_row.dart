@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:bassant_academy/data/providers/storage/local_provider.dart';
+import 'package:bassant_academy/presentation/controller/home_screen/home_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,9 +24,8 @@ class _AppLanguageRowState extends State<AppLanguageRow> {
               child: GestureDetector(
                 onTap: () async {
                   await LanguageData.changeLanguage(lang);
-                  setState(() {
-
-                  });
+                  setState(() {});
+                  Get.find<HomeScreenController>().init();
                 },
                 child: Container(
                   margin: const EdgeInsetsDirectional.only(end: 8),

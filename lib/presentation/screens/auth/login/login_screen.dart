@@ -141,6 +141,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
           await LocalProvider()
               .save(LocalProviderKeys.apiToken, authResponse.token);
+          APIProvider.instance.updateTokenHeader(authResponse.token);
+
           await LocalProvider()
               .save(LocalProviderKeys.userId, authResponse.userId);
           Get.find<AppConfigController>().isLoggedIn.value = true;

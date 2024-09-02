@@ -130,7 +130,6 @@ class _UniversityScreenState extends State<UniversityScreen> {
                           } else {
                             Get.to(
                               () => CollegeScreen(
-                                countryModel: widget.countryModel,
                                 universityModel: universities[selectedIndex],
                               ),
                             );

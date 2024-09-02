@@ -56,12 +56,15 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppText(
-                      "${'hello'.tr}, أحمد",
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    GetBuilder<HomeScreenController>(
+                        builder: (homeScreenController) {
+                      return AppText(
+                        "${'hello'.tr}, ${homeScreenController.profileResponse?.data?.user?.name}",
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      );
+                    }),
                     Container(
                       constraints: BoxConstraints(
                           maxWidth: MediaQuery.sizeOf(context).width / 2),
@@ -108,37 +111,44 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            AppCachedImage(
-                              imageUrl: homeScreenController.countryImage,
-                              width: 30,
-                              height: 25,
-                              radius: 8,
-                            ),
-                            10.pw,
-                            AppText(
-                              '${homeScreenController.countryName} , ${homeScreenController.universityName}',
-                              fontSize: 16,
-                            )
-                          ],
+                        Flexible(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              AppCachedImage(
+                                imageUrl: homeScreenController
+                                    .profileResponse?.data?.country?.image,
+                                width: 30,
+                                height: 25,
+                                radius: 8,
+                              ),
+                              10.pw,
+                              AppText(
+                                '${homeScreenController.profileResponse?.data?.country?.name ?? ''} , ${homeScreenController.profileResponse?.data?.university?.name ?? ''}',
+                                fontSize: 16,
+                              )
+                            ],
+                          ),
                         ),
                         10.ph,
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            AppText(
-                              '${homeScreenController.collegeName}, ',
-                              fontSize: 16,
-                            ),
-                            AppText(
-                              homeScreenController.levelName,
-                              color: Constants.kClickableTextColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ],
+                        Flexible(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              AppText(
+                                '${homeScreenController.profileResponse?.data?.collage?.name ?? ''}, ',
+                                fontSize: 16,
+                              ),
+                              AppText(
+                                homeScreenController
+                                        .profileResponse?.data?.level?.name ??
+                                    '',
+                                color: Constants.kClickableTextColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     );

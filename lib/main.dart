@@ -39,9 +39,17 @@ void main() async {
 
   await LocalProvider().init();
   await initializeNotifications();
-
+  // await setUpSecureMode(enabled: true);
   runApp(const App());
 }
+
+// setUpSecureMode({required bool enabled}) async {
+//   if (enabled) {
+//     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+//   } else {
+//     await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+//   }
+// }
 
 Future initializeNotifications() async {
   await Firebase.initializeApp(

@@ -1,6 +1,10 @@
 import 'package:bassant_academy/app/extensions/space.dart';
 import 'package:bassant_academy/app/res/res.dart';
 import 'package:bassant_academy/app/util/constants.dart';
+import 'package:bassant_academy/app/util/information_viewer.dart';
+import 'package:bassant_academy/app/util/operation_reply.dart';
+import 'package:bassant_academy/data/entities/general_response.dart';
+import 'package:bassant_academy/data/providers/network/api_provider.dart';
 import 'package:bassant_academy/data/providers/storage/local_provider.dart';
 import 'package:bassant_academy/presentation/screens/add_subjects/add_subjects_screen.dart';
 import 'package:bassant_academy/presentation/screens/profile/profile_screen.dart';
@@ -113,7 +117,26 @@ class SideMenu extends StatelessWidget {
             const AppLanguageRow(),
             40.ph,
             GestureDetector(
-              onTap: () => _singOut(context),
+              onTap: () {
+                scaleDialog(
+                  context: context,
+                  content: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppText(
+                      'logout_message'.tr,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  cancelText: 'cancel'.tr,
+                  onCancelClick: Get.back,
+                  confirmText: 'logout'.tr,
+                  onConfirmClick: _singOut,
+                  barrierDismissible: true,
+                  cancelColor: Colors.black,
+                  confirmColor: Colors.red,
+                );
+              },
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 decoration: BoxDecoration(
@@ -148,24 +171,17 @@ class SideMenu extends StatelessWidget {
     );
   }
 
-  void _singOut(BuildContext context) async {
-    scaleDialog(
-      context: context,
-      content: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: AppText(
-          'logout_message'.tr,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      cancelText: 'cancel'.tr,
-      onCancelClick: Get.back,
-      confirmText: 'logout'.tr,
-      onConfirmClick: LocalProvider().signOut,
-      barrierDismissible: true,
-      cancelColor: Colors.black,
-      confirmColor: Colors.red,
+  void _singOut() async {
+    OperationReply operationReply = await APIProvider.instance.get(
+      endPoint: Res.apiLogout,
+      fromJson: GeneralResponse.fromJson,
     );
+    if (operationReply.isSuccess()) {
+      GeneralResponse generalResponse = operationReply.result;
+      await LocalProvider().signOut();
+      InformationViewer.showSuccessToast(msg: generalResponse.message);
+    } else {
+      InformationViewer.showErrorToast(msg: operationReply.message);
+    }
   }
 }

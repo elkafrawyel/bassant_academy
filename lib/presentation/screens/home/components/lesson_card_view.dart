@@ -1,4 +1,5 @@
 import 'package:bassant_academy/app/extensions/space.dart';
+import 'package:bassant_academy/data/entities/lecture_model.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,21 +8,28 @@ import 'package:get/get.dart';
 import '../../../../app/res/res.dart';
 import '../../../../app/util/constants.dart';
 import '../../../widgets/app_widgets/app_text.dart';
+import '../../video_player_screen/video_player_screen.dart';
 
 class LessonCardView extends StatelessWidget {
-  final dynamic? subject;
+  final LectureModel lecture;
 
   static double height = 230;
 
   const LessonCardView({
     super.key,
-    this.subject,
+    required this.lecture,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {},
+      onTap: () async {
+        Get.to(
+          () => VideoPlayerScreen(
+            lectureModel: lecture,
+          ),
+        );
+      },
       child: SizedBox(
         width: Get.width * 0.44,
         height: height,
@@ -54,7 +62,7 @@ class LessonCardView extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: AppText(
-                    subject['name'] ?? '',
+                    lecture.name ?? '',
                     fontSize: 14,
                     maxLines: 3,
                   ),
@@ -63,7 +71,9 @@ class LessonCardView extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                    color: Constants.kClickableTextColor.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+                  color: Constants.kClickableTextColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -75,7 +85,7 @@ class LessonCardView extends StatelessWidget {
                         height: 20,
                       ),
                       5.pw,
-                      const AppText('02:30:12'),
+                      AppText(lecture.duration ?? ''),
                     ],
                   ),
                 ),

@@ -1,9 +1,11 @@
 import 'package:bassant_academy/app/extensions/space.dart';
+import 'package:bassant_academy/app/res/res.dart';
 import 'package:bassant_academy/presentation/screens/home/components/app_horizontal_list_view.dart';
 import 'package:bassant_academy/presentation/screens/home/components/app_shimmer_horizontal_list_view.dart';
 import 'package:bassant_academy/presentation/screens/home/components/side_menu.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../controller/home_screen/home_screen_controller.dart';
@@ -73,14 +75,25 @@ class _HomeScreenState extends State<HomeScreen> {
                               const AppShimmerHorizontalListView(),
                               const AppShimmerHorizontalListView(),
                             ]
-                          : homeScreenController.subjects
-                              .map(
-                                (subject) => AppHorizontalListView(
-                                  title: subject['name'],
-                                  data: subject['lessons'],
-                                ),
-                              )
-                              .toList(),
+                          : homeScreenController.operationReply.isEmpty()
+                              ? [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 50,
+                                    ),
+                                    child: SvgPicture.asset(Res.iconStudying),
+                                  ),
+                                ]
+                              : (homeScreenController
+                                          .profileResponse?.data?.subjects ??
+                                      [])
+                                  .map(
+                                    (subject) => AppHorizontalListView(
+                                      title: subject.name ?? '',
+                                      data: subject.lectures,
+                                    ),
+                                  )
+                                  .toList(),
                     ),
                   ),
                 ),

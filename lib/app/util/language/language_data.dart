@@ -43,6 +43,7 @@ class LanguageData {
   static Future<void> changeLanguage(LanguageData value) async {
     await Get.updateLocale(Locale(value.languageCode));
     await LocalProvider().save(LocalProviderKeys.language, value.languageCode);
-    APIProvider.instance.updateAcceptedLanguageHeader(value.languageCode);
+    APIProvider.instance.updateAcceptedLanguageHeader(
+        value.languageCode == 'ar' ? "ar-EG" : 'en-US');
   }
 }

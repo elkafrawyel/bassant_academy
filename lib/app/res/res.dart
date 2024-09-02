@@ -11,11 +11,14 @@ class Res {
   static const apiLogout = 'Auth/logout';
   static const apiRegister = 'Auth/register';
   static const apiProfile = 'Auth/profile';
+  static const apiEditProfile = 'student/editStudentProfile';
   static const apiCountries = 'Setup/getAllCounties';
   static const apiUniversities = 'Setup/getUniversitiesByCountryId';
   static const apiColleages = 'Setup/getColleagesByUniversityId';
   static const apiLevels = 'Setup/getStudyLevelsByCollegeId';
   static const apiSubjects = 'Setup/GetSubjectsByStudyLevelId';
+  static const apiAddStudentProfile = 'student/addStudentProfile';
+  static const apiGetStudentProfile = 'student/getStudentProfile';
 
   //========================== Animation Assets  ===============================
   static const animApiLoading = 'assets/anim/api_loading.json';
@@ -42,6 +45,7 @@ class Res {
   static const String iconSignOut = 'assets/icons/signout.svg';
   static const String iconClock = 'assets/icons/clock.svg';
   static const String iconEdit = 'assets/icons/edit.svg';
+  static const String iconStudying = 'assets/icons/studying.svg';
 
   //========================== Images Assets  ===============================
   static const logoImage = "assets/images/launcher/logo.png";

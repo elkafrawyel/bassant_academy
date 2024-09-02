@@ -43,7 +43,7 @@ class _AppState extends State<App> {
                     Environment.appMode == AppMode.testing,
             defaultTransition: Transition.cupertino,
             transitionDuration: const Duration(milliseconds: 300),
-            title: 'VPM',
+            title: 'app_name'.tr,
             theme: appConfigController.theme.value,
             translations: Translation(),
             locale: Locale(appLanguage),

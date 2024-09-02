@@ -142,6 +142,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           animationController.reverse();
           await LocalProvider()
               .save(LocalProviderKeys.apiToken, authResponse.token);
+          APIProvider.instance.updateTokenHeader(authResponse.token);
+
           await LocalProvider()
               .save(LocalProviderKeys.userId, authResponse.userId);
           Get.find<AppConfigController>().isLoggedIn.value = true;

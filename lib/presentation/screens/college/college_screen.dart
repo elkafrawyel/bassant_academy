@@ -1,7 +1,6 @@
 import 'package:bassant_academy/app/extensions/space.dart';
 import 'package:bassant_academy/data/entities/college_model.dart';
 import 'package:bassant_academy/data/entities/college_response.dart';
-import 'package:bassant_academy/data/entities/country_model.dart';
 import 'package:bassant_academy/data/entities/university_model.dart';
 import 'package:bassant_academy/presentation/screens/level/level_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +15,10 @@ import '../../widgets/app_widgets/app_progress_button.dart';
 import '../../widgets/app_widgets/app_text.dart';
 
 class CollegeScreen extends StatefulWidget {
-  final CountryModel countryModel;
   final UniversityModel universityModel;
 
   const CollegeScreen({
     super.key,
-    required this.countryModel,
     required this.universityModel,
   });
 
@@ -128,8 +125,6 @@ class _CollegeScreenState extends State<CollegeScreen> {
                           } else {
                             Get.to(
                               () => LevelScreen(
-                                countryModel: widget.countryModel,
-                                universityModel: widget.universityModel,
                                 collegeModel: colleges[selectedIndex],
                               ),
                             );
