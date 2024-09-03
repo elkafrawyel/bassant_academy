@@ -6,6 +6,7 @@ import 'package:bassant_academy/app/util/operation_reply.dart';
 import 'package:bassant_academy/data/entities/general_response.dart';
 import 'package:bassant_academy/data/providers/network/api_provider.dart';
 import 'package:bassant_academy/data/providers/storage/local_provider.dart';
+import 'package:bassant_academy/presentation/screens/about/about_screen.dart';
 import 'package:bassant_academy/presentation/screens/add_subjects/add_subjects_screen.dart';
 import 'package:bassant_academy/presentation/screens/profile/profile_screen.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
@@ -88,6 +89,10 @@ class SideMenu extends StatelessWidget {
               ),
             ),
             ListTile(
+              onTap: () {
+                Get.back();
+                Get.to(() => const AboutScreen());
+              },
               leading: SvgPicture.asset(
                 Res.iconAbout,
                 width: 25,

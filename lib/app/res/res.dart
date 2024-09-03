@@ -19,6 +19,8 @@ class Res {
   static const apiSubjects = 'Setup/GetSubjectsByStudyLevelId';
   static const apiAddStudentProfile = 'student/addStudentProfile';
   static const apiGetStudentProfile = 'student/getStudentProfile';
+  static const apiAboutUs = 'student/aboutus';
+  static const apiDeleteAccount = 'student/delete';
 
   //========================== Animation Assets  ===============================
   static const animApiLoading = 'assets/anim/api_loading.json';

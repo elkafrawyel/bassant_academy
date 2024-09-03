@@ -1,6 +1,8 @@
 import 'package:bassant_academy/app/extensions/space.dart';
 import 'package:bassant_academy/app/res/res.dart';
 import 'package:bassant_academy/app/util/constants.dart';
+import 'package:bassant_academy/app/util/information_viewer.dart';
+import 'package:bassant_academy/data/providers/storage/local_provider.dart';
 import 'package:bassant_academy/presentation/screens/edit_profile/edit_profile_screen.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_dialog.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
@@ -8,6 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../../app/util/operation_reply.dart';
+import '../../../data/entities/general_response.dart';
+import '../../../data/providers/network/api_provider.dart';
 import '../../controller/home_screen/home_screen_controller.dart';
 import '../../widgets/app_widgets/app_cached_image.dart';
 
@@ -58,17 +63,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 18.0, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SvgPicture.asset(Res.iconProfile),
                         10.pw,
                         AppText(
-                          homeScreenController
-                                  .profileResponse?.data?.user?.name ??
-                              '',
+                          homeScreenController.profileResponse?.data?.user?.name ?? '',
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Constants.kClickableTextColor,
@@ -85,17 +87,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 18.0, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SvgPicture.asset(Res.iconEmail),
                         10.pw,
                         AppText(
-                          homeScreenController
-                                  .profileResponse?.data?.user?.email ??
-                              '',
+                          homeScreenController.profileResponse?.data?.user?.email ?? '',
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Constants.kClickableTextColor,
@@ -112,17 +111,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 18.0, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SvgPicture.asset(Res.iconPhone),
                         10.pw,
                         AppText(
-                          homeScreenController
-                                  .profileResponse?.data?.user?.phone ??
-                              '',
+                          homeScreenController.profileResponse?.data?.user?.phone ?? '',
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Constants.kClickableTextColor,
@@ -132,14 +128,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 30.ph,
-                GetBuilder<HomeScreenController>(
-                    builder: (homeScreenController) {
+                GetBuilder<HomeScreenController>(builder: (homeScreenController) {
                   return Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       AppCachedImage(
-                        imageUrl: homeScreenController
-                            .profileResponse?.data?.country?.image,
+                        imageUrl: homeScreenController.profileResponse?.data?.country?.image,
                         width: 30,
                         height: 25,
                         radius: 8,
@@ -153,8 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   );
                 }),
                 10.ph,
-                GetBuilder<HomeScreenController>(
-                    builder: (homeScreenController) {
+                GetBuilder<HomeScreenController>(builder: (homeScreenController) {
                   return Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -163,9 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         fontSize: 16,
                       ),
                       AppText(
-                        homeScreenController
-                                .profileResponse?.data?.level?.name ??
-                            '',
+                        homeScreenController.profileResponse?.data?.level?.name ?? '',
                         color: Constants.kClickableTextColor,
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -238,5 +229,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  void _deleteAccount() async {}
+  void _deleteAccount() async {
+    OperationReply operationReply = await APIProvider.instance.delete(
+      endPoint: Res.apiAboutUs,
+      fromJson: GeneralResponse.fromJson,
+      requestBody: {},
+    );
+
+    if (operationReply.isSuccess()) {
+      GeneralResponse generalResponse = operationReply.result;
+      InformationViewer.showSuccessToast(msg: generalResponse.message);
+      Get.back();
+      LocalProvider().signOut();
+    } else {
+      InformationViewer.showToastBasedOnReply(operationReply);
+    }
+  }
 }

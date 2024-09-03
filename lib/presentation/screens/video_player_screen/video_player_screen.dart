@@ -1,5 +1,6 @@
 import 'package:bassant_academy/app/util/util.dart';
 import 'package:bassant_academy/data/entities/lecture_model.dart';
+import 'package:bassant_academy/presentation/controller/home_screen/home_screen_controller.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -87,8 +88,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                   progressIndicatorColor: Theme.of(context).primaryColor,
                   progressColors: ProgressBarColors(
                     playedColor: Theme.of(context).primaryColor,
-                    handleColor:
-                        Theme.of(context).primaryColor.withOpacity(0.5),
+                    handleColor: Theme.of(context).primaryColor.withOpacity(0.5),
                   ),
                   onEnded: (youtubeMetaDate) {
                     Get.back();
@@ -148,9 +148,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: Icon(
-                                showLectureName
-                                    ? Icons.keyboard_arrow_down
-                                    : Icons.keyboard_arrow_up,
+                                showLectureName ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up,
                                 color: Colors.white,
                                 size: 30,
                               ),
@@ -158,6 +156,17 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                ),
+                Center(
+                  child: RotationTransition(
+                    turns: const AlwaysStoppedAnimation(15 / 360),
+                    child: AppText(
+                      Get.find<HomeScreenController>().profileResponse?.data?.user?.phone ?? '',
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white30,
                     ),
                   ),
                 )
