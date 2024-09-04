@@ -5,7 +5,6 @@ import 'package:bassant_academy/data/entities/general_response.dart';
 import 'package:bassant_academy/data/providers/network/api_provider.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class AboutScreen extends StatefulWidget {
@@ -51,7 +50,12 @@ class _AboutScreenState extends State<AboutScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
-        child: HtmlWidget(html),
+        child: AppText(
+          html,
+          maxLines: 1000,
+          fontWeight: FontWeight.w800,
+          fontSize: 16,
+        ),
       ),
     );
   }
