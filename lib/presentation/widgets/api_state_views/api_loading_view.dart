@@ -4,13 +4,14 @@ import 'package:lottie/lottie.dart';
 import '../../../app/res/res.dart';
 
 class ApiLoadingView extends StatelessWidget {
-  const ApiLoadingView({Key? key}) : super(key: key);
+  const ApiLoadingView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top,
+      height: MediaQuery.of(context).size.height -
+          MediaQuery.of(context).padding.top,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

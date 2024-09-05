@@ -1,4 +1,5 @@
 import 'package:bassant_academy/app/extensions/space.dart';
+import 'package:bassant_academy/app/res/res.dart';
 import 'package:bassant_academy/presentation/controller/notifications/notifications_controller.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +16,10 @@ class NotificationsScreen extends StatelessWidget {
   final NotificationsController notificationsController = Get.put(
     NotificationsController(
       ConfigData(
-        apiEndPoint: 'notifications',
+        apiEndPoint: Res.apiNotifications,
         emptyListMessage: 'empty_notifications'.tr,
-        fromJson: NotificationsModel.fromJson,
+        fromJson: NotificationModel.fromJson,
+        isPostRequest: true,
       ),
     ),
   );
@@ -85,9 +87,9 @@ class NotificationsScreen extends StatelessWidget {
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.all(38.0),
-                        child: AppText(
-                            notificationsController.paginationList[index].id ??
-                                ''),
+                        child: AppText(notificationsController
+                                .paginationList[index].title ??
+                            ''),
                       ),
                     ),
                   ),

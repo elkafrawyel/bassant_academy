@@ -21,9 +21,10 @@ class Res {
   static const apiGetStudentProfile = 'student/getStudentProfile';
   static const apiAboutUs = 'student/aboutus';
   static const apiDeleteAccount = 'student/delete';
+  static const apiNotifications = 'Notification/getAllNotifications';
 
   //========================== Animation Assets  ===============================
-  static const animApiLoading = 'assets/anim/api_loading.json';
+  static const animApiLoading = 'assets/anim/loading.json';
   static const animApiEmpty = 'assets/anim/api_empty.json';
   static const animApiError = 'assets/anim/api_error.json';
   static const animSuccess = 'assets/anim/success.json';
@@ -48,6 +49,7 @@ class Res {
   static const String iconClock = 'assets/icons/clock.svg';
   static const String iconEdit = 'assets/icons/edit.svg';
   static const String iconStudying = 'assets/icons/studying.svg';
+  static const String iconZoom = 'assets/icons/zoom.svg';
 
   //========================== Images Assets  ===============================
   static const logoImage = "assets/images/launcher/logo.png";

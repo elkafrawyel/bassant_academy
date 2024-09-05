@@ -13,6 +13,9 @@ class PaginationController<T> extends GetxController {
   bool isLastPage = false;
   bool _loadingMore = false, _loadingMoreEnd = false;
   bool paginate = true;
+  final _page = 'pageNumber';
+  final _perPage = 'pageSize';
+  final _paginate = 'paginate';
 
   PaginationResponse<T>? paginationResponse;
   List<T> paginationList = [];
@@ -52,20 +55,36 @@ class PaginationController<T> extends GetxController {
     if (loading) {
       operationReply = OperationReply.loading();
     }
-    String path =
-        '${configData.apiEndPoint}?paginate=$paginate&page=$page&per_page=$perPage';
-    if ({configData.parameters ?? {}}.isNotEmpty) {
-      configData.parameters?.forEach((key, value) {
-        path += '&$key=$value';
-      });
+    if (configData.isPostRequest) {
+      operationReply = await APIProvider.instance.post(
+        endPoint: '${configData.apiEndPoint}?$_paginate=$paginate',
+        fromJson: (json) => PaginationResponse<T>.fromJson(
+          json,
+          fromJson: configData.fromJson,
+        ),
+        requestBody: (configData.parameters ?? {})
+          ..addAll({
+            _page: page,
+            _perPage: perPage,
+          }),
+      );
+    } else {
+      String path =
+          '${configData.apiEndPoint}?$_paginate=$paginate&$_page=$page&$_perPage=$perPage';
+      if ({configData.parameters ?? {}}.isNotEmpty) {
+        configData.parameters?.forEach((key, value) {
+          path += '&$key=$value';
+        });
+      }
+
+      operationReply = await APIProvider.instance.get(
+        endPoint: path,
+        fromJson: (json) => PaginationResponse<T>.fromJson(
+          json,
+          fromJson: configData.fromJson,
+        ),
+      );
     }
-    operationReply = await APIProvider.instance.get(
-      endPoint: path,
-      fromJson: (json) => PaginationResponse<T>.fromJson(
-        json,
-        fromJson: configData.fromJson,
-      ),
-    );
 
     if (operationReply.isSuccess()) {
       paginationResponse = operationReply.result;
@@ -92,21 +111,36 @@ class PaginationController<T> extends GetxController {
       return;
     }
     loadingMore = true;
-    String path =
-        '${configData.apiEndPoint}?paginate=$paginate&page=$page&per_page=$perPage';
-    if ({configData.parameters ?? {}}.isNotEmpty) {
-      configData.parameters?.forEach((key, value) {
-        path += '&$key=$value';
-      });
-    }
+    if (configData.isPostRequest) {
+      operationReply = await APIProvider.instance.post(
+        endPoint: '${configData.apiEndPoint}?$_paginate=$paginate',
+        fromJson: (json) => PaginationResponse<T>.fromJson(
+          json,
+          fromJson: configData.fromJson,
+        ),
+        requestBody: (configData.parameters ?? {})
+          ..addAll({
+            _page: page,
+            _perPage: perPage,
+          }),
+      );
+    } else {
+      String path =
+          '${configData.apiEndPoint}?$_paginate=$paginate&$_page=$page&$_perPage=$perPage';
+      if ({configData.parameters ?? {}}.isNotEmpty) {
+        configData.parameters?.forEach((key, value) {
+          path += '&$key=$value';
+        });
+      }
 
-    operationReply = await APIProvider.instance.get(
-      endPoint: path,
-      fromJson: (json) => PaginationResponse<T>.fromJson(
-        json,
-        fromJson: configData.fromJson,
-      ),
-    );
+      operationReply = await APIProvider.instance.get(
+        endPoint: path,
+        fromJson: (json) => PaginationResponse<T>.fromJson(
+          json,
+          fromJson: configData.fromJson,
+        ),
+      );
+    }
 
     if (operationReply.isSuccess()) {
       paginationResponse = operationReply.result;

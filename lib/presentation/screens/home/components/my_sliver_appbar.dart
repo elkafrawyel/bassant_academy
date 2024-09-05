@@ -1,5 +1,4 @@
 import 'package:bassant_academy/app/extensions/space.dart';
-import 'package:bassant_academy/presentation/screens/notifications/notifications_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -9,6 +8,7 @@ import '../../../../app/util/constants.dart';
 import '../../../controller/home_screen/home_screen_controller.dart';
 import '../../../widgets/app_widgets/app_cached_image.dart';
 import '../../../widgets/app_widgets/app_text.dart';
+import '../../notifications/notifications_screen.dart';
 
 class MySliverAppBar extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
@@ -20,7 +20,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
   });
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     bool expanded = shrinkOffset / expandedHeight == 0;
 
     return Stack(
@@ -55,7 +56,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GetBuilder<HomeScreenController>(builder: (homeScreenController) {
+                    GetBuilder<HomeScreenController>(
+                        builder: (homeScreenController) {
                       return AppText(
                         "${'hello'.tr}, ${homeScreenController.profileResponse?.data?.user?.name ?? ''}",
                         color: Colors.white,
@@ -64,7 +66,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                       );
                     }),
                     Container(
-                      constraints: BoxConstraints(maxWidth: MediaQuery.sizeOf(context).width / 2),
+                      constraints: BoxConstraints(
+                          maxWidth: MediaQuery.sizeOf(context).width / 2),
                       child: AppText(
                         "home_message".tr,
                         color: Colors.white,
@@ -77,17 +80,17 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                 ),
               ),
               const Spacer(),
-              // GestureDetector(
-              //   onTap: () {
-              //     Get.to(() => NotificationsScreen());
-              //   },
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(8.0),
-              //     child: SvgPicture.asset(
-              //       Res.iconNotification,
-              //     ),
-              //   ),
-              // )
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => NotificationsScreen());
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SvgPicture.asset(
+                    Res.iconNotification,
+                  ),
+                ),
+              )
             ],
           ),
         ),
@@ -102,7 +105,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: Padding(
                   padding: const EdgeInsets.all(18.0),
-                  child: GetBuilder<HomeScreenController>(builder: (homeScreenController) {
+                  child: GetBuilder<HomeScreenController>(
+                      builder: (homeScreenController) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -112,7 +116,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               AppCachedImage(
-                                imageUrl: homeScreenController.profileResponse?.data?.country?.image,
+                                imageUrl: homeScreenController
+                                    .profileResponse?.data?.country?.image,
                                 width: 30,
                                 height: 25,
                                 radius: 8,
@@ -135,7 +140,9 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                 fontSize: 16,
                               ),
                               AppText(
-                                homeScreenController.profileResponse?.data?.level?.name ?? '',
+                                homeScreenController
+                                        .profileResponse?.data?.level?.name ??
+                                    '',
                                 color: Constants.kClickableTextColor,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,

@@ -31,7 +31,11 @@ class HomeScreenController extends GeneralController {
         operationReply = OperationReply.empty(message: '');
         Get.to(() => const CountryScreen());
       } else {
-        operationReply = OperationReply.success();
+        if ((profileResponse?.data?.subjects ?? []).isEmpty) {
+          operationReply = OperationReply.empty(message: '');
+        } else {
+          operationReply = OperationReply.success();
+        }
       }
     } else {
       operationReply = OperationReply.failed(message: operationReply.message);

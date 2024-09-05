@@ -1,18 +1,29 @@
-class NotificationsModel {
-  NotificationsModel({
-    this.id,
+import 'package:bassant_academy/data/entities/lecture_model.dart';
+
+class NotificationModel {
+  NotificationModel({
+    this.studentId,
+    this.notificationId,
+    this.title,
+    this.description,
+    this.link,
+    this.lecture,
   });
 
-  NotificationsModel.fromJson(dynamic json) {
-    id = json['id'];
+  NotificationModel.fromJson(dynamic json) {
+    studentId = json['studentId'];
+    notificationId = json['notificationId'];
+    title = json['title'];
+    description = json['description'];
+    link = json['link'];
+    lecture =
+        json['lecture'] != null ? LectureModel.fromJson(json['lecture']) : null;
   }
 
-  String? id;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-
-    return map;
-  }
+  String? studentId;
+  num? notificationId;
+  String? title;
+  String? description;
+  String? link;
+  LectureModel? lecture;
 }
