@@ -4,6 +4,7 @@ import 'package:fcm_config/fcm_config.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_prevent_screenshot/disablescreenshot.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 import 'app/util/util.dart';
@@ -41,14 +42,27 @@ void main() async {
   await LocalProvider().init();
   await initializeNotifications();
   await setUpSecureMode(enabled: true);
+
   runApp(const App());
 }
 
 setUpSecureMode({required bool enabled}) async {
   if (enabled) {
-    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+    ///flutter_windowmanager
+    if (Platform.isAndroid) {
+      await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+    }
+
+    ///flutter_prevent_screenshot
+    await FlutterPreventScreenshot.instance.screenshotOff();
   } else {
-    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+    ///flutter_windowmanager
+    if (Platform.isAndroid) {
+      await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+    }
+
+    ///flutter_prevent_screenshot
+    await FlutterPreventScreenshot.instance.screenshotOn();
   }
 }
 
