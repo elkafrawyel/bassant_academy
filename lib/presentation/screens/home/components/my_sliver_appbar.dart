@@ -2,6 +2,7 @@ import 'package:bassant_academy/app/extensions/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../app/res/res.dart';
 import '../../../../app/util/constants.dart';
@@ -107,51 +108,56 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                   padding: const EdgeInsets.all(18.0),
                   child: GetBuilder<HomeScreenController>(
                       builder: (homeScreenController) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Flexible(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
+                    return homeScreenController.operationReply.isLoading()
+                        ? Center(child: Lottie.asset(Res.animApiLoading))
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              AppCachedImage(
-                                imageUrl: homeScreenController
-                                    .profileResponse?.data?.country?.image,
-                                width: 30,
-                                height: 25,
-                                radius: 8,
+                              Flexible(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    AppCachedImage(
+                                      imageUrl: homeScreenController
+                                          .profileResponse
+                                          ?.data
+                                          ?.country
+                                          ?.image,
+                                      width: 30,
+                                      height: 25,
+                                      radius: 8,
+                                    ),
+                                    10.pw,
+                                    AppText(
+                                      '${homeScreenController.profileResponse?.data?.country?.name ?? ''}, ${homeScreenController.profileResponse?.data?.university?.name ?? ''}',
+                                      fontSize: 16,
+                                    )
+                                  ],
+                                ),
                               ),
-                              10.pw,
-                              AppText(
-                                '${homeScreenController.profileResponse?.data?.country?.name ?? ''} ${homeScreenController.profileResponse?.data?.university?.name ?? ''}',
-                                fontSize: 16,
+                              10.ph,
+                              Flexible(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    AppText(
+                                      '${homeScreenController.profileResponse?.data?.collage?.name ?? ''}, ',
+                                      fontSize: 16,
+                                    ),
+                                    AppText(
+                                      homeScreenController.profileResponse?.data
+                                              ?.level?.name ??
+                                          '',
+                                      color: Constants.kClickableTextColor,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ],
+                                ),
                               )
                             ],
-                          ),
-                        ),
-                        10.ph,
-                        Flexible(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              AppText(
-                                '${homeScreenController.profileResponse?.data?.collage?.name ?? ''} ',
-                                fontSize: 16,
-                              ),
-                              AppText(
-                                homeScreenController
-                                        .profileResponse?.data?.level?.name ??
-                                    '',
-                                color: Constants.kClickableTextColor,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    );
+                          );
                   }),
                 ),
               ),
@@ -170,37 +176,4 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
-
-  Widget _cardView() => Card(
-        elevation: 10,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  const AppCachedImage(
-                    imageUrl:
-                        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/1024px-Flag_of_Egypt.svg.png',
-                    width: 40,
-                    height: 30,
-                    radius: 8,
-                  ),
-                  10.pw,
-                  const AppText('مصر , جامعة المنصورة')
-                ],
-              ),
-              Row(
-                children: [
-                  const AppText('كلية الطب البشري , '),
-                  AppText(
-                    'الفرقة الرابعة',
-                    color: Constants.kClickableTextColor,
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      );
 }

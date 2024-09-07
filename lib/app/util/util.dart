@@ -4,6 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
   static String getImagePath(String name, {String format = 'png'}) {
@@ -45,5 +46,13 @@ class Utils {
       return androidDeviceInfo.id; // unique ID on Android
     }
     return null;
+  }
+
+  Future<void> launchUrlString(String url) async {
+    try {
+      await launchUrl(Uri.parse(url));
+    } catch (e) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

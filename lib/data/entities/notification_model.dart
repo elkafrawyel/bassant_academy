@@ -7,6 +7,7 @@ class NotificationModel {
     this.title,
     this.description,
     this.link,
+    this.creationDate,
     this.lecture,
   });
 
@@ -16,8 +17,12 @@ class NotificationModel {
     title = json['title'];
     description = json['description'];
     link = json['link'];
-    lecture =
-        json['lecture'] != null ? LectureModel.fromJson(json['lecture']) : null;
+    creationDate = json['creationDate'];
+    lecture = json['lecture'] != null
+        ? LectureModel.fromJson(
+            json['lecture'],
+          )
+        : null;
   }
 
   String? studentId;
@@ -25,5 +30,6 @@ class NotificationModel {
   String? title;
   String? description;
   String? link;
+  String? creationDate;
   LectureModel? lecture;
 }

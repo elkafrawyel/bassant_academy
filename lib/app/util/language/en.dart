@@ -204,4 +204,6 @@ Map<String, String> en = {
   'home_message': 'A journey of a thousand miles begins with a single step.',
   'edit_profile': 'Edit Profile',
   'delete_account': 'Delete Account',
+  'empty_notifications': 'You have no notifications yet.',
+  'join_now': 'Join Now',
 };

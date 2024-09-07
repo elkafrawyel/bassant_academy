@@ -200,4 +200,6 @@ Map<String, String> ar = {
   'home_message': 'رحلة الألف ميل تبدأ بخطوة واحدة',
   'edit_profile': 'تعديل الحساب الشخصي',
   'delete_account': 'حذف الحساب',
+  'empty_notifications': 'لا توجد لديك إشعارات حتي الان',
+  'join_now': 'إنضم الآن',
 };

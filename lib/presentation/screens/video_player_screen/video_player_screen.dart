@@ -29,6 +29,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   bool isFullScreen = false;
 
+  final homeScreenController = Get.find<HomeScreenController>();
+
   @override
   void initState() {
     // String url = 'https://www.youtube.com/watch?v=4h0G2LIvSHY';
@@ -189,18 +191,20 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 
   Widget _studentPhone() {
+    String? studentPhone;
+    try {
+      studentPhone =
+          homeScreenController.profileResponse?.data?.user?.phone ?? '';
+    } catch (e) {
+      print('Error getting phone information');
+    }
     return Offstage(
       offstage: !isFullScreen,
       child: IgnorePointer(
         child: RotationTransition(
           turns: const AlwaysStoppedAnimation(15 / 360),
           child: Text(
-            Get.find<HomeScreenController>()
-                    .profileResponse
-                    ?.data
-                    ?.user
-                    ?.phone ??
-                '',
+            studentPhone ?? '',
             style: const TextStyle(
               fontSize: 46,
               fontWeight: FontWeight.bold,

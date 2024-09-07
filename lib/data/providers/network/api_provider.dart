@@ -21,6 +21,8 @@ class APIProvider {
   /// the one and only instance of this singleton
   static final instance = APIProvider._();
 
+  static final testToken =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6YWtpaWkiLCJqdGkiOiI2NjJiMzYxNi1iNTUyLTQ3NTgtYmJhNS0yODFjYWVjZmY3MmEiLCJlbWFpbCI6Inpha2lpaUBnbWFpbC5jb20iLCJ1c2VyX2lkIjoiZWY5NTQyMTEtYjNiMS00MjM0LTkyMjMtMGM3YjhjNTBjZjU5IiwidGltZSI6IjHigI_igI8vOeKAj-KAjy8yMDI0IDg6MjQ6MTgg2YUiLCJleHAiOjE3Mjc4MDM0NTgsImlzcyI6IlNlY3VyZUFwaSIsImF1ZCI6IlNlY3VyZUFwaVVzZXIifQ.fUj6eNT7bDwaidaQrjXfrrZ5br9PhK6sQ0ODgo4lBvQ';
   final Dio _client = Dio(
     BaseOptions(
       baseUrl: Environment.url(),
@@ -29,6 +31,7 @@ class APIProvider {
         HttpHeaders.cacheControlHeader: 'no-Cache',
         HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
         HttpHeaders.authorizationHeader:
+            // 'Bearer $testToken',
             'Bearer ${LocalProvider().apiToken() ?? 'No Token Found'}',
         HttpHeaders.acceptLanguageHeader:
             LocalProvider().getAppLanguage() == 'ar' ? 'ar-EG' : 'en-US'

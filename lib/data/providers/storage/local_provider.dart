@@ -33,7 +33,8 @@ class LocalProvider {
     debugPrint('LocalProvider initialization.');
   }
 
-  String getAppLanguage() => get(LocalProviderKeys.language);
+  String getAppLanguage() =>
+      get(LocalProviderKeys.language) ?? Constants.mainAppLanguage;
 
   bool isLogged() => get(LocalProviderKeys.apiToken) != null;
 
