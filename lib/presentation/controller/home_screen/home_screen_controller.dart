@@ -29,7 +29,7 @@ class HomeScreenController extends GeneralController {
 
       if (profileResponse?.data?.user?.isFirstLogin ?? false) {
         operationReply = OperationReply.empty(message: '');
-        Get.to(() => const CountryScreen());
+        Get.offAll(() => const CountryScreen());
       } else {
         if ((profileResponse?.data?.subjects ?? []).isEmpty) {
           operationReply = OperationReply.empty(message: '');
