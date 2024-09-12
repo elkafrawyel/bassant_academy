@@ -206,4 +206,5 @@ Map<String, String> en = {
   'delete_account': 'Delete Account',
   'empty_notifications': 'You have no notifications yet.',
   'join_now': 'Join Now',
+  'my_subscriptions': 'My Subscriptions',
 };

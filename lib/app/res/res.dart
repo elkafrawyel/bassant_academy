@@ -17,6 +17,7 @@ class Res {
   static const apiColleages = 'Setup/getColleagesByUniversityId';
   static const apiLevels = 'Setup/getStudyLevelsByCollegeId';
   static const apiSubjects = 'Setup/GetSubjectsByStudyLevelId';
+  static const apiSocialLinks = 'Setup/GetSocialLinks';
   static const apiAddStudentProfile = 'student/addStudentProfile';
   static const apiGetStudentProfile = 'student/getStudentProfile';
   static const apiAboutUs = 'student/aboutus';
@@ -50,6 +51,12 @@ class Res {
   static const String iconEdit = 'assets/icons/edit.svg';
   static const String iconStudying = 'assets/icons/studying.svg';
   static const String iconZoom = 'assets/icons/zoom.svg';
+  static const String iconFacebook = 'assets/icons/facebook.svg';
+  static const String iconTiktok = 'assets/icons/tiktok.svg';
+  static const String iconInstagram = 'assets/icons/instagram.svg';
+  static const String iconTwitter = 'assets/icons/twitter.svg';
+  static const String iconWhatsapp = 'assets/icons/whatsapp.svg';
+  static const String iconSubscriptions = 'assets/icons/subscriptions.svg';
 
   //========================== Images Assets  ===============================
   static const logoImage = "assets/images/launcher/logo.png";

@@ -202,4 +202,5 @@ Map<String, String> ar = {
   'delete_account': 'حذف الحساب',
   'empty_notifications': 'لا توجد لديك إشعارات حتي الان',
   'join_now': 'إنضم الآن',
+  'my_subscriptions': 'إشتراكاتي',
 };
