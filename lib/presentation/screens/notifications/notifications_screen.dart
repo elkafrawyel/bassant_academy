@@ -3,6 +3,7 @@ import 'package:bassant_academy/app/res/res.dart';
 import 'package:bassant_academy/presentation/controller/notifications/notifications_controller.dart';
 import 'package:bassant_academy/presentation/screens/notifications/components/notification_card_view.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
+import 'package:fcm_config/fcm_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,9 +12,15 @@ import '../../controller/my_controllers/pagination_controller/data/config_data.d
 import '../../widgets/api_state_views/handel_api_state.dart';
 import '../../widgets/api_state_views/pagination_view.dart';
 
-class NotificationsScreen extends StatelessWidget {
+class NotificationsScreen extends StatefulWidget {
   NotificationsScreen({super.key});
 
+  @override
+  State<NotificationsScreen> createState() => _NotificationsScreenState();
+}
+
+class _NotificationsScreenState extends State<NotificationsScreen>
+    with FCMNotificationMixin {
   final NotificationsController notificationsController = Get.put(
     NotificationsController(
       ConfigData(
@@ -99,5 +106,10 @@ class NotificationsScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  @override
+  void onNotify(RemoteMessage notification) {
+    notificationsController.refreshApiCall(loading: false);
   }
 }
