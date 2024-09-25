@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:bassant_academy/presentation/screens/splash_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -29,7 +30,9 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     PlatformDispatcher.instance.onLocaleChanged = () {
-      print("Locale changed");
+      if (kDebugMode) {
+        print("Locale changed");
+      }
       setState(() {});
     };
     String appLanguage = LocalProvider().getAppLanguage();

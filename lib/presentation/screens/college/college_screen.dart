@@ -11,7 +11,6 @@ import '../../../app/res/res.dart';
 import '../../../app/util/information_viewer.dart';
 import '../../../app/util/operation_reply.dart';
 import '../../../data/providers/network/api_provider.dart';
-import '../../widgets/app_widgets/app_progress_button.dart';
 import '../../widgets/app_widgets/app_text.dart';
 
 class CollegeScreen extends StatefulWidget {
@@ -27,8 +26,6 @@ class CollegeScreen extends StatefulWidget {
 }
 
 class _CollegeScreenState extends State<CollegeScreen> {
-  int selectedIndex = -1;
-
   List<CollegeModel> colleges = [];
 
   bool _loading = false;
@@ -81,58 +78,36 @@ class _CollegeScreenState extends State<CollegeScreen> {
               ? const SizedBox()
               : Padding(
                   padding: const EdgeInsets.all(18.0),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: RefreshIndicator(
-                          onRefresh: _loadColleges,
-                          child: ListView.separated(
-                            itemBuilder: (context, index) => GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  selectedIndex = index;
-                                });
-                              },
-                              child: ListTile(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    8,
-                                  ),
-                                ),
-                                selected: selectedIndex == index,
-                                selectedTileColor:
-                                    Theme.of(context).primaryColor,
-                                title: AppText(
-                                  colleges[index].name ?? '',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                selectedColor: Colors.white,
-                                tileColor: const Color(0xffF5F5F5),
-                              ),
+                  child: RefreshIndicator(
+                    onRefresh: _loadColleges,
+                    child: ListView.separated(
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {
+                          Get.to(
+                            () => LevelScreen(
+                              collegeModel: colleges[index],
                             ),
-                            separatorBuilder: (context, index) => 10.ph,
-                            itemCount: colleges.length,
+                          );
+                        },
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              8,
+                            ),
                           ),
+                          selectedTileColor: Theme.of(context).primaryColor,
+                          title: AppText(
+                            colleges[index].name ?? '',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          selectedColor: Colors.white,
+                          tileColor: const Color(0xffF5F5F5),
                         ),
                       ),
-                      AppProgressButton(
-                        backgroundColor:
-                            selectedIndex == -1 ? Colors.grey : null,
-                        onPressed: (animationController) async {
-                          if (selectedIndex == -1) {
-                            return;
-                          } else {
-                            Get.to(
-                              () => LevelScreen(
-                                collegeModel: colleges[selectedIndex],
-                              ),
-                            );
-                          }
-                        },
-                        child: AppText('continue'.tr),
-                      )
-                    ],
+                      separatorBuilder: (context, index) => 10.ph,
+                      itemCount: colleges.length,
+                    ),
                   ),
                 ),
     );

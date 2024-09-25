@@ -1,13 +1,7 @@
 import 'package:bassant_academy/app/extensions/space.dart';
-import 'package:bassant_academy/presentation/widgets/app_widgets/app_cached_image.dart';
 import 'package:bassant_academy/presentation/widgets/shimmer_widgets/shimmer_effect_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
-import '../../../../app/res/res.dart';
-import '../../../../app/util/constants.dart';
-import '../../../widgets/app_widgets/app_text.dart';
 
 class LessonShimmerCardView extends StatelessWidget {
   static double height = 200;
@@ -51,7 +45,9 @@ class LessonShimmerCardView extends StatelessWidget {
                   height: 13,
                   width: 150,
                 ),
-              ),5.ph, const Padding(
+              ),
+              5.ph,
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.0),
                 child: MyShimmerEffectUI.rectangular(
                   height: 13,

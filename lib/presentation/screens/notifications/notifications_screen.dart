@@ -13,7 +13,7 @@ import '../../widgets/api_state_views/handel_api_state.dart';
 import '../../widgets/api_state_views/pagination_view.dart';
 
 class NotificationsScreen extends StatefulWidget {
-  NotificationsScreen({super.key});
+  const NotificationsScreen({super.key});
 
   @override
   State<NotificationsScreen> createState() => _NotificationsScreenState();

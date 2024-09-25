@@ -16,7 +16,7 @@ class AppDropMenu<T> extends StatefulWidget {
   final String? validationText;
 
   const AppDropMenu({
-    Key? key,
+    super.key,
     this.initialValue,
     required this.hint,
     required this.items,
@@ -27,7 +27,7 @@ class AppDropMenu<T> extends StatefulWidget {
     this.backgroundColor,
     this.centerHint = false,
     this.validationText,
-  }) : super(key: key);
+  });
 
   @override
   State<AppDropMenu<T>> createState() => AppDropMenuState<T>();
@@ -62,7 +62,8 @@ class AppDropMenuState<T> extends State<AppDropMenu<T>> {
       },
       builder: ((formFieldState) {
         this.formFieldState = formFieldState;
-        bool hasError = formFieldState.hasError && widget.validationText != null;
+        bool hasError =
+            formFieldState.hasError && widget.validationText != null;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +73,11 @@ class AppDropMenuState<T> extends State<AppDropMenu<T>> {
               decoration: widget.bordered
                   ? BoxDecoration(
                       borderRadius: BorderRadius.circular(widget.radius),
-                      border: Border.all(width: 1, color: hasError ? errorColor : Theme.of(context).primaryColor),
+                      border: Border.all(
+                          width: 1,
+                          color: hasError
+                              ? errorColor
+                              : Theme.of(context).primaryColor),
                       color: widget.backgroundColor,
                     )
                   : BoxDecoration(color: widget.backgroundColor),
@@ -81,9 +86,13 @@ class AppDropMenuState<T> extends State<AppDropMenu<T>> {
                 value: selectedItem,
                 dropdownColor: Theme.of(context).scaffoldBackgroundColor,
                 hint: Align(
-                  alignment: widget.centerHint ? AlignmentDirectional.center : AlignmentDirectional.centerStart,
+                  alignment: widget.centerHint
+                      ? AlignmentDirectional.center
+                      : AlignmentDirectional.centerStart,
                   child: AppText(
-                    selectedItem == null ? widget.hint : selectedItem.toString(),
+                    selectedItem == null
+                        ? widget.hint
+                        : selectedItem.toString(),
                     maxLines: 1,
                     color: hintColor,
                     fontSize: 14,

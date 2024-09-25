@@ -12,7 +12,6 @@ import '../../../app/res/res.dart';
 import '../../../app/util/information_viewer.dart';
 import '../../../app/util/operation_reply.dart';
 import '../../../data/providers/network/api_provider.dart';
-import '../../widgets/app_widgets/app_progress_button.dart';
 import '../../widgets/app_widgets/app_text.dart';
 
 class UniversityScreen extends StatefulWidget {
@@ -28,8 +27,6 @@ class UniversityScreen extends StatefulWidget {
 }
 
 class _UniversityScreenState extends State<UniversityScreen> {
-  int selectedIndex = -1;
-
   List<UniversityModel> universities = [];
   bool _loading = false;
 
@@ -68,8 +65,9 @@ class _UniversityScreenState extends State<UniversityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text('${'choose_university'.tr} ( ${widget.countryModel.name} )'),
+        title: Text(
+          '${'choose_university'.tr} ( ${widget.countryModel.name} )',
+        ),
         centerTitle: false,
       ),
       body: loading
@@ -80,64 +78,42 @@ class _UniversityScreenState extends State<UniversityScreen> {
               ? const SizedBox()
               : Padding(
                   padding: const EdgeInsets.all(18.0),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: RefreshIndicator(
-                          onRefresh: _loadUniversities,
-                          child: ListView.separated(
-                            itemBuilder: (context, index) => GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  selectedIndex = index;
-                                });
-                              },
-                              child: ListTile(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    8,
-                                  ),
-                                ),
-                                selected: selectedIndex == index,
-                                selectedTileColor:
-                                    Theme.of(context).primaryColor,
-                                title: Row(
-                                  children: [
-                                    AppCachedImage(
-                                      imageUrl: universities[index].image,
-                                      width: 40,
-                                      height: 40,
-                                    ),
-                                    10.pw,
-                                    AppText(universities[index].name ?? ''),
-                                  ],
-                                ),
-                                selectedColor: Colors.white,
-                                tileColor: const Color(0xffF5F5F5),
-                              ),
+                  child: RefreshIndicator(
+                    onRefresh: _loadUniversities,
+                    child: ListView.separated(
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {
+                          Get.to(
+                            () => CollegeScreen(
+                              universityModel: universities[index],
                             ),
-                            separatorBuilder: (context, index) => 10.ph,
-                            itemCount: universities.length,
+                          );
+                        },
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              8,
+                            ),
                           ),
+                          selectedTileColor: Theme.of(context).primaryColor,
+                          title: Row(
+                            children: [
+                              AppCachedImage(
+                                imageUrl: universities[index].image,
+                                width: 40,
+                                height: 40,
+                              ),
+                              10.pw,
+                              AppText(universities[index].name ?? ''),
+                            ],
+                          ),
+                          selectedColor: Colors.white,
+                          tileColor: const Color(0xffF5F5F5),
                         ),
                       ),
-                      AppProgressButton(
-                        backgroundColor:
-                            selectedIndex == -1 ? Colors.grey : null,
-                        onPressed: (animationController) async {
-                          if (selectedIndex == -1) {
-                            return;
-                          } else {
-                            Get.to(
-                              () => CollegeScreen(
-                                universityModel: universities[selectedIndex],
-                              ),
-                            );
-                          }
-                        },
-                        child: AppText('continue'.tr),
-                      )
-                    ],
+                      separatorBuilder: (context, index) => 10.ph,
+                      itemCount: universities.length,
+                    ),
                   ),
                 ),
     );
