@@ -24,7 +24,7 @@ class AppProgressButton extends StatefulWidget {
   final FontWeight? fontWeight;
 
   const AppProgressButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     this.text,
     this.child,
@@ -40,7 +40,7 @@ class AppProgressButton extends StatefulWidget {
     this.padding,
     this.fontFamily,
     this.fontWeight,
-  }) : super(key: key);
+  });
 
   @override
   State<AppProgressButton> createState() => AppProgressButtonState();
@@ -65,7 +65,6 @@ class AppProgressButtonState extends State<AppProgressButton>
     controller.addStatusListener((status) {
       switch (status) {
         case AnimationStatus.dismissed:
-          // TODO: Handle this case.
           break;
         case AnimationStatus.forward:
 
@@ -83,10 +82,8 @@ class AppProgressButtonState extends State<AppProgressButton>
           });
           break;
         case AnimationStatus.reverse:
-          // TODO: Handle this case.
           break;
         case AnimationStatus.completed:
-          // TODO: Handle this case.
           break;
       }
     });

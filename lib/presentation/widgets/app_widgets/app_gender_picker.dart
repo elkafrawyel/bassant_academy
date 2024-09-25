@@ -54,9 +54,8 @@ class _GenderPickerDialog extends StatelessWidget {
   final Function(AppGender gender) onGenderPicked;
 
   const _GenderPickerDialog({
-    Key? key,
     required this.onGenderPicked,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

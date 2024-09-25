@@ -6,7 +6,7 @@ import 'package:bassant_academy/data/providers/network/api_provider.dart';
 import 'package:bassant_academy/data/providers/storage/local_provider.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_progress_button.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text_field/app_text_field.dart';
-import 'package:fcm_config/fcm_config.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
@@ -122,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     } else {
       animationController.forward();
       String? deviceId = await Utils.getUniqueDeviceId();
-      String? firebaseToken = await FCMConfig.instance.messaging.getToken();
+      String? firebaseToken = await FirebaseMessaging.instance.getToken();
       OperationReply operationReply = await APIProvider.instance.post(
         endPoint: Res.apiRegister,
         fromJson: AuthResponse.fromJson,

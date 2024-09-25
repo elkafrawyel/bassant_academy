@@ -1,7 +1,9 @@
 import 'package:bassant_academy/app/extensions/space.dart';
 import 'package:bassant_academy/data/entities/lecture_model.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -184,7 +186,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       studentPhone =
           homeScreenController.profileResponse?.data?.user?.phone ?? '';
     } catch (e) {
-      print('Error getting phone information');
+      if (kDebugMode) {
+        print('Error getting phone information');
+      }
     }
     return Offstage(
       offstage: !isFullScreen,
@@ -205,74 +209,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     );
   }
 
-  Widget _lectureName() {
-    return Offstage(
-      offstage: !isFullScreen,
-      child: PositionedDirectional(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Offstage(
-                offstage: !showLectureName,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      showLectureName = !showLectureName;
-                    });
-                  },
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white24,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: AppText(
-                        widget.lectureModel.name ?? '',
-                        color: Colors.white60,
-                        fontSize: 24,
-                        maxLines: 3,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white24,
-                ),
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      showLectureName = !showLectureName;
-                    });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Icon(
-                      showLectureName
-                          ? Icons.keyboard_arrow_down
-                          : Icons.keyboard_arrow_up,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   void _handleBackButton() {
     if (isFullScreen) {
       _controller.toggleFullScreenMode();
     } else {
-      Get.back();
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        Get.back();
+      });
     }
   }
 }

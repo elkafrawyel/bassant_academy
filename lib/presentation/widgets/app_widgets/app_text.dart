@@ -21,8 +21,8 @@ class AppText extends StatelessWidget {
     this.fontWeight = FontWeight.w400,
     this.lineThrough = false,
     this.underLine = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

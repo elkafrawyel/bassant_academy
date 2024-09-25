@@ -25,8 +25,8 @@ class AppCachedImage extends StatelessWidget {
     this.borderWidth,
     this.localFile,
     this.isCircular = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

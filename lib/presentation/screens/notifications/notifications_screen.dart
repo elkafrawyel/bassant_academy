@@ -1,9 +1,10 @@
+import 'package:bassant_academy/app/config/notifications/notification_mixin.dart';
 import 'package:bassant_academy/app/extensions/space.dart';
 import 'package:bassant_academy/app/res/res.dart';
 import 'package:bassant_academy/presentation/controller/notifications/notifications_controller.dart';
 import 'package:bassant_academy/presentation/screens/notifications/components/notification_card_view.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
-import 'package:fcm_config/fcm_config.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -58,7 +58,7 @@ class AppTextFormField extends StatefulWidget {
   final bool alwaysShowRules;
 
   const AppTextFormField({
-    Key? key,
+    super.key,
     required this.controller,
     this.keyboardType,
     this.backgroundColor,
@@ -90,7 +90,7 @@ class AppTextFormField extends StatefulWidget {
     this.checkRules = true,
     this.required = true,
     this.alwaysShowRules = false,
-  }) : super(key: key);
+  });
 
   @override
   AppTextFormFieldState createState() => AppTextFormFieldState();

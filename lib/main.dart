@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:fcm_config/fcm_config.dart';
+import 'package:bassant_academy/app/config/notifications/notifications_service.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_prevent_screenshot/disablescreenshot.dart';
@@ -40,7 +41,11 @@ void main() async {
   );
 
   await LocalProvider().init();
-  await initializeNotifications();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await NotificationsService().init();
+  FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundMessage);
   await setUpSecureMode(enabled: true);
 
   runApp(const App());
@@ -66,25 +71,8 @@ setUpSecureMode({required bool enabled}) async {
   }
 }
 
-Future initializeNotifications() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  await FCMConfig.instance.init(
-    onBackgroundMessage: _firebaseMessagingBackgroundHandler,
-    defaultAndroidChannel: const AndroidNotificationChannel(
-      'com.bassant.academy',
-      'Bassant Academy',
-    ),
-  );
-
-  FCMConfig.instance.messaging.getToken().then((token) {
-    Utils.logMessage('Firebase Token:$token');
-  });
-}
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  Utils.logMessage("Handling a background message: ${message.messageId}");
+Future _firebaseBackgroundMessage(RemoteMessage remoteMessage) async {
+  if (remoteMessage.notification != null) {
+    Utils.logMessage('Background Notification Received.');
+  }
 }

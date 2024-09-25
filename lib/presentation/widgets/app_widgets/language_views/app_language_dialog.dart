@@ -14,7 +14,7 @@ showAppLanguageDialog({
 }
 
 class _LanguageDialog extends StatelessWidget {
-  const _LanguageDialog({Key? key}) : super(key: key);
+  const _LanguageDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +72,4 @@ class _LanguageDialog extends StatelessWidget {
       ),
     );
   }
-
-
 }
