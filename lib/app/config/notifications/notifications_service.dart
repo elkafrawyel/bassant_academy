@@ -184,7 +184,7 @@ class NotificationsService {
     // ? todo : chack if the user is opening the screen to just
     // ? update the ui or data
     if (Get.isRegistered<NotificationsController>()) {
-      Get.find<NotificationsController>().refreshApiCall();
+      Get.find<NotificationsController>().refreshApiCall(loading: false);
     } else {
       // ? here the user is not opening the screen
       // ? show a simple notification.
