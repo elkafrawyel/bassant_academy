@@ -57,6 +57,7 @@ class Res {
   static const String iconTwitter = 'assets/icons/twitter.svg';
   static const String iconWhatsapp = 'assets/icons/whatsapp.svg';
   static const String iconSubscriptions = 'assets/icons/subscriptions.svg';
+  static const String iconMessages = 'assets/icons/messages.svg';
 
   //========================== Images Assets  ===============================
   static const logoImage = "assets/images/launcher/logo.png";

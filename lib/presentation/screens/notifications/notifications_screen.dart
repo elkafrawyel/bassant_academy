@@ -4,6 +4,7 @@ import 'package:bassant_academy/app/res/res.dart';
 import 'package:bassant_academy/presentation/controller/notifications/notifications_controller.dart';
 import 'package:bassant_academy/presentation/screens/notifications/components/notification_card_view.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
+import 'package:bassant_academy/presentation/widgets/app_widgets/paginated_views/app_paginated_listview.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,6 @@ import 'package:get/get.dart';
 import '../../../data/entities/notification_model.dart';
 import '../../controller/my_controllers/pagination_controller/data/config_data.dart';
 import '../../widgets/api_state_views/handel_api_state.dart';
-import '../../widgets/api_state_views/pagination_view.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
@@ -82,25 +82,16 @@ class _NotificationsScreenState extends State<NotificationsScreen>
                 ],
               ),
             ),
-            child: PaginationView(
-              loadMoreData: notificationsController.callMoreData,
-              showLoadMoreWidget: notificationsController.loadingMore,
-              showLoadMoreEndWidget: notificationsController.loadingMoreEnd,
-              child: RefreshIndicator(
-                color: const Color(0xff3D6AA5),
-                backgroundColor: Colors.white,
-                onRefresh: notificationsController.refreshApiCall,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.separated(
-                    itemBuilder: (context, index) => NotificationCardView(
-                      notificationModel:
-                          notificationsController.paginationList[index],
-                    ),
-                    separatorBuilder: (context, index) => 5.ph,
-                    itemCount: notificationsController.paginationList.length,
-                  ),
-                ),
+            child: AppPaginatedListview(
+              configData: ConfigData<NotificationModel>(
+                apiEndPoint: Res.apiNotifications,
+                emptyListMessage: 'empty_notifications'.tr,
+                fromJson: NotificationModel.fromJson,
+                isPostRequest: true,
+              ),
+              child: (NotificationModel notificationModel) =>
+                  NotificationCardView(
+                notificationModel: notificationModel,
               ),
             ),
           );

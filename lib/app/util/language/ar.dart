@@ -203,4 +203,5 @@ Map<String, String> ar = {
   'empty_notifications': 'لا توجد لديك إشعارات حتي الان',
   'join_now': 'إنضم الآن',
   'my_subscriptions': 'إشتراكاتي',
+  'messages': 'الرسائل'
 };

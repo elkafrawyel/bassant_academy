@@ -1,4 +1,5 @@
 import 'package:bassant_academy/app/extensions/space.dart';
+import 'package:bassant_academy/presentation/screens/messages/messages_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -83,7 +84,20 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
               const Spacer(),
               GestureDetector(
                 onTap: () {
-                  Get.to(() => NotificationsScreen());
+                  Get.to(() => const MessagesScreen());
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SvgPicture.asset(
+                    Res.iconMessages,
+                    width: 30,
+                    height: 30,
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => const NotificationsScreen());
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -91,7 +105,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                     Res.iconNotification,
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

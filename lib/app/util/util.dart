@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bassant_academy/data/providers/storage/local_provider.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -53,6 +54,17 @@ class Utils {
       await launchUrl(Uri.parse(url));
     } catch (e) {
       throw Exception('Could not launch $url');
+    }
+  }
+
+  static String getTimeFromDate(DateTime? date, {DateFormat? dateFormat}) {
+    if (date == null) {
+      return '';
+    } else {
+      return DateFormat(
+        dateFormat?.pattern ?? DateFormat.HOUR_MINUTE,
+        LocalProvider().getAppLanguage(),
+      ).format(date);
     }
   }
 }
