@@ -203,5 +203,8 @@ Map<String, String> ar = {
   'empty_notifications': 'لا توجد لديك إشعارات حتي الان',
   'join_now': 'إنضم الآن',
   'my_subscriptions': 'إشتراكاتي',
-  'messages': 'الرسائل'
+  'messages': 'الرسائل',
+  'my_students': 'طلابي',
+  'empty_messages': 'لا يوجد لديك اي رسائل حتي الان',
+  'empty_students': 'لا يوجد لديك اي طلاب',
 };

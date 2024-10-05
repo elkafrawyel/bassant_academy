@@ -22,7 +22,7 @@ class _ImageBubbleViewState extends State<ImageBubbleView> {
       image:
           'https://hackspirit.com/wp-content/uploads/2021/06/Copy-of-Rustic-Female-Teen-Magazine-Cover.jpg',
       color: Theme.of(context).primaryColor,
-      tail: true,
+      tail: false,
     );
   }
 }

@@ -207,5 +207,8 @@ Map<String, String> en = {
   'empty_notifications': 'You have no notifications yet.',
   'join_now': 'Join Now',
   'my_subscriptions': 'My Subscriptions',
-  'messages': 'Messages'
+  'messages': 'Messages',
+  'my_students': 'My Students',
+  'empty_messages': 'You have no messages yet.',
+  'empty_students': 'You have no students yet.',
 };

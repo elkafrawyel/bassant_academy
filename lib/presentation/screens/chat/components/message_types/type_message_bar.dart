@@ -52,6 +52,7 @@ class TypeMessageBar extends StatelessWidget {
   ///
   ///
   TypeMessageBar({
+    super.key,
     this.replying = false,
     this.replyingTo = "",
     this.actions = const [],

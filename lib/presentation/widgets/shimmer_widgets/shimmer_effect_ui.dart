@@ -11,26 +11,24 @@ class MyShimmerEffectUI extends StatelessWidget {
   final double? radius;
 
   const MyShimmerEffectUI.rectangular({
-    Key? key,
+    super.key,
     required this.height,
     this.baseColor,
     this.highlightColor,
     this.seconds,
     this.width = double.infinity,
     this.radius,
-  })  : shapeShape = BoxShape.rectangle,
-        super(key: key);
+  }) : shapeShape = BoxShape.rectangle;
 
   const MyShimmerEffectUI.circular({
-    Key? key,
+    super.key,
     required this.height,
     this.baseColor,
     this.highlightColor,
     this.seconds,
     this.width = double.infinity,
     this.radius,
-  })  : shapeShape = BoxShape.circle,
-        super(key: key);
+  }) : shapeShape = BoxShape.circle;
 
   @override
   Widget build(BuildContext context) => Shimmer.fromColors(

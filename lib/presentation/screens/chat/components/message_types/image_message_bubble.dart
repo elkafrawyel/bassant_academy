@@ -5,7 +5,7 @@ import 'package:photo_view/photo_view_gallery.dart';
 
 import '../../../../widgets/app_widgets/app_cached_image.dart';
 
-const double BUBBLE_RADIUS_IMAGE = 16;
+const double imageRadius = 16;
 
 /// Basic image bubble
 ///
@@ -64,9 +64,9 @@ class ImageMessageBubble extends StatelessWidget {
   const ImageMessageBubble({
     super.key,
     required this.image,
-    this.width = 100,
-    this.height = 100,
-    this.bubbleRadius = BUBBLE_RADIUS_IMAGE,
+    this.width = 250,
+    this.height = 250,
+    this.bubbleRadius = imageRadius,
     this.margin = EdgeInsets.zero,
     this.padding = const EdgeInsets.fromLTRB(16, 8, 16, 8),
     this.leading,
@@ -124,8 +124,8 @@ class ImageMessageBubble extends StatelessWidget {
           padding: padding,
           margin: margin,
           constraints: BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width * .5,
-            maxHeight: MediaQuery.of(context).size.width * .5,
+            maxWidth: MediaQuery.of(context).size.width * .7,
+            maxHeight: MediaQuery.of(context).size.width * .7,
           ),
           child: GestureDetector(
               onLongPress: onLongPress,
@@ -152,12 +152,12 @@ class ImageMessageBubble extends StatelessWidget {
                               ? isSender
                                   ? bubbleRadius
                                   : 0
-                              : BUBBLE_RADIUS_IMAGE),
+                              : imageRadius),
                           bottomRight: Radius.circular(tail
                               ? isSender
                                   ? 0
                                   : bubbleRadius
-                              : BUBBLE_RADIUS_IMAGE),
+                              : imageRadius),
                         ),
                       ),
                       child: Padding(
@@ -196,7 +196,7 @@ class _DetailScreen extends StatefulWidget {
   final String tag;
   final String image;
 
-  const _DetailScreen({super.key, required this.tag, required this.image});
+  const _DetailScreen({required this.tag, required this.image});
 
   @override
   _DetailScreenState createState() => _DetailScreenState();

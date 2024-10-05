@@ -9,9 +9,9 @@ class ApiEmptyView extends StatelessWidget {
   final String emptyText;
 
   const ApiEmptyView({
-    Key? key,
+    super.key,
     required this.emptyText,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
