@@ -29,10 +29,9 @@ class AppConfigController extends GetxController {
       Utils.logMessage('Ever called on logged in callback');
       debugPrint('isLoggedIn =>$callback');
       if (callback) {
-        bool isStudent =
-            LocalProvider().get(LocalProviderKeys.isStudent) ?? true;
+        int? isStudent = LocalProvider().get(LocalProviderKeys.isStudent);
 
-        if (isStudent) {
+        if (isStudent == null || isStudent == 1) {
           Get.offAll(() => const HomeScreen(), binding: HomeScreenBinding());
         } else {
           Get.offAll(() => const TeacherHomeScreen());
