@@ -23,7 +23,7 @@ class MessagesController extends GeneralController {
     operationReply = OperationReply.loading();
     operationReply = await APIProvider.instance.get(
       endPoint: Res.apiLastMessages,
-      fromJson: LastMessageModel.fromJson,
+      fromJson: LastMessagesResponse.fromJson,
     );
     if (operationReply.isSuccess()) {
       LastMessagesResponse lastMessagesResponse = operationReply.result;

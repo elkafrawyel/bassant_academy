@@ -1,5 +1,6 @@
 import 'package:bassant_academy/app/extensions/space.dart';
 import 'package:bassant_academy/data/entities/lecture_model.dart';
+import 'package:bassant_academy/data/entities/teacher_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../widgets/app_widgets/app_text.dart';
@@ -8,12 +9,14 @@ import 'lesson_card_view.dart';
 class AppHorizontalListView extends StatelessWidget {
   final String title;
   final List<LectureModel>? data;
+  final TeacherModel teacherModel;
   final Function()? onSeeAllClicked;
 
   const AppHorizontalListView({
     super.key,
     required this.title,
     required this.data,
+    required this.teacherModel,
     this.onSeeAllClicked,
   });
 
@@ -75,9 +78,10 @@ class AppHorizontalListView extends StatelessWidget {
                 separatorBuilder: (context, index) => 3.pw,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  padding: EdgeInsets.symmetric(vertical: 4.0),
                   child: LessonCardView(
                     lecture: data![index],
+                    teacher: teacherModel,
                   ),
                 ),
                 itemCount: data!.length,

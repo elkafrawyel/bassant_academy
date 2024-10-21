@@ -59,8 +59,9 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
           bottom: TabBar(
             indicatorSize: TabBarIndicatorSize.tab,
             indicatorWeight: 3,
-            labelStyle: const TextStyle(
+            labelStyle: TextStyle(
               fontSize: 16,
+              fontFamily: Res.appFontFamily,
             ),
             tabs: [
               Tab(

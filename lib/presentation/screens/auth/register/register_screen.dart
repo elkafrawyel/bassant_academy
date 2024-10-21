@@ -148,9 +148,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
             LocalProviderKeys.userId,
             authResponse.userId,
           );
+
           await LocalProvider().save(
             LocalProviderKeys.isStudent,
-            authResponse.isStudent,
+            authResponse.isStudent == true ? 1 : 0,
           );
 
           Get.find<AppConfigController>().isLoggedIn.value = true;

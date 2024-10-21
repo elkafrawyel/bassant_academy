@@ -1,14 +1,19 @@
+import 'package:bassant_academy/app/res/res.dart';
+import 'package:bassant_academy/app/util/information_viewer.dart';
 import 'package:bassant_academy/app/util/operation_reply.dart';
+import 'package:bassant_academy/data/entities/my_students_response.dart';
+import 'package:bassant_academy/data/providers/network/api_provider.dart';
 import 'package:bassant_academy/presentation/controller/my_controllers/general_controller.dart';
 
-import '../../../data/entities/user_model.dart';
+import '../../../data/entities/student_model.dart';
 
 class StudentsController extends GeneralController {
-  List<UserModel> students = [];
+  List<StudentModel> students = [];
 
   @override
   void onInit() {
     super.onInit();
+    students.clear();
     _loadStudents();
   }
 
@@ -19,25 +24,21 @@ class StudentsController extends GeneralController {
 
   Future _loadStudents() async {
     operationReply = OperationReply.loading();
-    await Future.delayed(const Duration(seconds: 3));
-    students = [
-      UserModel(
-        name: 'Mahmoud',
-      ),
-      UserModel(
-        name: 'Ali',
-      ),
-      UserModel(
-        name: 'Ahmed',
-      ),
-      UserModel(
-        name: 'Khaled',
-      ),
-    ];
-    if (students.isEmpty) {
-      operationReply = OperationReply.empty();
+    operationReply = await APIProvider.instance.get(
+      endPoint: Res.apiMyStudents,
+      fromJson: MyStudentsResponse.fromJson,
+    );
+
+    if (operationReply.isSuccess()) {
+      MyStudentsResponse myStudentsResponse = operationReply.result;
+      students = myStudentsResponse.data ?? [];
+      if (students.isEmpty) {
+        operationReply = OperationReply.empty();
+      } else {
+        operationReply = OperationReply.success();
+      }
     } else {
-      operationReply = OperationReply.success();
+      InformationViewer.showErrorToast(msg: operationReply.message);
     }
   }
 }

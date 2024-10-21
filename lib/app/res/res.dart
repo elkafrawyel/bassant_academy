@@ -26,6 +26,7 @@ class Res {
   static const apiLastMessages = 'Messages/GetAllMessageList';
   static const apiChatMessages = 'Messages/GetMessagesWithPagination';
   static const apiSendMessage = 'Messages/SendMessage';
+  static const apiMyStudents = 'Messages/GetStudentsEnrolledInSubjects';
 
   //========================== Animation Assets  ===============================
   static const animApiLoading = 'assets/anim/loading.json';

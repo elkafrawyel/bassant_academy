@@ -1,5 +1,7 @@
 import 'package:bassant_academy/app/extensions/space.dart';
 import 'package:bassant_academy/data/entities/lecture_model.dart';
+import 'package:bassant_academy/data/entities/teacher_model.dart';
+import 'package:bassant_academy/presentation/screens/chat/chat_screen.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +16,12 @@ import '../../controller/home_screen/home_screen_controller.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   final LectureModel lectureModel;
+  final TeacherModel? teacherModel;
 
   const VideoPlayerScreen({
     super.key,
     required this.lectureModel,
+    this.teacherModel,
   });
 
   @override
@@ -169,6 +173,35 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                           ),
                         ),
                       ),
+                      if (widget.teacherModel != null)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(12),
+                              side: const BorderSide(
+                                color: Colors.black,
+                                width: 0.2,
+                              ),
+                            ),
+                            title: AppText(widget.teacherModel?.name ?? ''),
+                            trailing: const Icon(
+                              Icons.message,
+                              color: Colors.grey,
+                            ),
+                            onTap: () async {
+                              _controller.pause();
+                              await Get.to(
+                                () => ChatScreen(
+                                  name: widget.teacherModel?.name ?? '',
+                                  id: widget.teacherModel?.id ?? '',
+                                ),
+                              );
+                              _controller.play();
+                            },
+                          ),
+                        )
                     ],
                   ),
                 ),

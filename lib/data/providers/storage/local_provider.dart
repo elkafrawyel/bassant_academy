@@ -12,7 +12,7 @@ enum LocalProviderKeys {
   notifications, //int
   apiToken, //String
   userId, //String
-  isStudent, //boolean
+  isStudent, //int
 }
 
 class LocalProvider {

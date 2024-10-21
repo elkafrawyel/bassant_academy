@@ -1,5 +1,6 @@
 import 'package:bassant_academy/app/extensions/space.dart';
 import 'package:bassant_academy/data/entities/lecture_model.dart';
+import 'package:bassant_academy/data/entities/teacher_model.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,12 +13,14 @@ import '../../video_player_screen/video_player_screen.dart';
 
 class LessonCardView extends StatelessWidget {
   final LectureModel lecture;
+  final TeacherModel teacher;
 
   static double height = 230;
 
   const LessonCardView({
     super.key,
     required this.lecture,
+    required this.teacher,
   });
 
   @override
@@ -25,9 +28,7 @@ class LessonCardView extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         Get.to(
-          () => VideoPlayerScreen(
-            lectureModel: lecture,
-          ),
+          () => VideoPlayerScreen(lectureModel: lecture, teacherModel: teacher),
         );
       },
       child: SizedBox(

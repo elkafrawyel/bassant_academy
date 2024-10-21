@@ -22,4 +22,9 @@ class MessageModel {
 
   bool isCurrentUser() =>
       LocalProvider().get(LocalProviderKeys.userId) == senderID;
+
+  @override
+  String toString() {
+    return date!;
+  }
 }

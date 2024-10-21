@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 import '../../../app/config/app_color.dart';
-import '../../../app/res/res.dart';
 import '../app_widgets/app_text.dart';
 
 class ApiEmptyView extends StatelessWidget {
@@ -23,9 +21,9 @@ class ApiEmptyView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Flexible(
-            child: Lottie.asset(Res.animApiEmpty, height: 400),
-          ),
+          // Flexible(
+          //   child: Lottie.asset(Res.animApiEmpty, height: 400),
+          // ),
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 28.0),

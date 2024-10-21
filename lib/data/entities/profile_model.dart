@@ -1,6 +1,7 @@
 import 'package:bassant_academy/data/entities/college_model.dart';
 import 'package:bassant_academy/data/entities/country_model.dart';
 import 'package:bassant_academy/data/entities/level_model.dart';
+import 'package:bassant_academy/data/entities/teacher_model.dart';
 import 'package:bassant_academy/data/entities/university_model.dart';
 import 'package:bassant_academy/data/entities/user_model.dart';
 
@@ -49,11 +50,13 @@ class SubjectWithLecturesModel {
     this.id,
     this.name,
     this.lectures,
+    this.teacher,
   });
 
   SubjectWithLecturesModel.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
+    teacher = TeacherModel.fromJson(json['teacher']);
     if (json['lectures'] != null) {
       lectures = [];
       json['lectures'].forEach((v) {
@@ -65,4 +68,5 @@ class SubjectWithLecturesModel {
   num? id;
   String? name;
   List<LectureModel>? lectures;
+  TeacherModel? teacher;
 }

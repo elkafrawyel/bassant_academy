@@ -133,6 +133,6 @@ class _ChatScreenState extends State<ChatScreen> with FCMNotificationMixin {
 
   @override
   void onNotify(RemoteMessage notification) {
-    _addMessage(notification.notification?.title ?? 'title here');
+    // _addMessage(notification.notification?.title ?? 'title here');
   }
 }

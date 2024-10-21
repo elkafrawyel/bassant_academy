@@ -1,10 +1,11 @@
-import 'package:bassant_academy/data/entities/user_model.dart';
 import 'package:bassant_academy/presentation/screens/chat/chat_screen.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../data/entities/student_model.dart';
+
 class MyStudentCard extends StatelessWidget {
-  final UserModel student;
+  final StudentModel student;
   const MyStudentCard({
     super.key,
     required this.student,

@@ -136,6 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (operationReply.isSuccess()) {
         AuthResponse authResponse = operationReply.result;
+
         if (authResponse.isAuthenticated ?? false) {
           animationController.reverse();
 

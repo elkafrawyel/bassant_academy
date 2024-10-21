@@ -16,7 +16,8 @@ class ApiErrorView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top,
+      height: MediaQuery.of(context).size.height -
+          MediaQuery.of(context).padding.top,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,19 +36,20 @@ class ApiErrorView extends StatelessWidget {
             ),
           ),
           30.ph,
-          ElevatedButton(
-            onPressed: retry,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: errorColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+          if (retry != null)
+            ElevatedButton(
+              onPressed: retry,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: errorColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 48.0, vertical: 12.0),
-              child: AppText('Try Again'),
-            ),
-          )
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 48.0, vertical: 12.0),
+                child: AppText('Try Again'),
+              ),
+            )
         ],
       ),
     );

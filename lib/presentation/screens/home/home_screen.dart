@@ -90,7 +90,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   .map(
                                     (subject) => AppHorizontalListView(
                                       title: subject.name ?? '',
-                                      data: subject.lectures,
+                                      data: subject.lectures!,
+                                      teacherModel: subject.teacher!,
                                     ),
                                   )
                                   .toList(),
