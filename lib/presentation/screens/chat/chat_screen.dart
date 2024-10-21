@@ -1,3 +1,8 @@
+import 'package:bassant_academy/app/util/information_viewer.dart';
+import 'package:bassant_academy/app/util/operation_reply.dart';
+import 'package:bassant_academy/app/util/util.dart';
+import 'package:bassant_academy/data/entities/send_message_response.dart';
+import 'package:bassant_academy/data/providers/network/api_provider.dart';
 import 'package:bassant_academy/data/providers/storage/local_provider.dart';
 import 'package:bassant_academy/presentation/screens/chat/components/image_bubble_view.dart';
 import 'package:bassant_academy/presentation/screens/chat/components/message_types/type_message_bar.dart';
@@ -15,7 +20,13 @@ import '../../widgets/app_widgets/paginated_views/app_paginated_grouped_listview
 import 'components/text_bubble_view.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  final String name;
+  final String id;
+  const ChatScreen({
+    super.key,
+    required this.name,
+    required this.id,
+  });
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -29,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen> with FCMNotificationMixin {
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
-        title: const AppText('User Name'),
+        title: AppText(widget.name),
         centerTitle: false,
       ),
       body: Column(
@@ -39,12 +50,15 @@ class _ChatScreenState extends State<ChatScreen> with FCMNotificationMixin {
               padding: const EdgeInsets.all(8.0),
               child: AppPaginatedGroupedListview<MessageModel>(
                 configData: ConfigData<MessageModel>(
-                  apiEndPoint: Res.apiNotifications,
-                  emptyListMessage: 'empty_notifications'.tr,
-                  fromJson: MessageModel.fromJson,
-                  isPostRequest: true,
-                ),
-                child: (MessageModel item) => item.isTextMessage
+                    apiEndPoint: Res.apiChatMessages,
+                    emptyListMessage: 'empty_messages'.tr,
+                    fromJson: MessageModel.fromJson,
+                    isPostRequest: true,
+                    parameters: {
+                      "recipientId": widget.id,
+                      // "recipientId": "08987232-99e6-40c6-b28e-f7a9a99a26ee",
+                    }),
+                child: (MessageModel item) => item.messageBody != null
                     ? TextBubbleView(
                         messageModel: item,
                       )
@@ -89,18 +103,32 @@ class _ChatScreenState extends State<ChatScreen> with FCMNotificationMixin {
     );
   }
 
-  _addMessage(String message) {
-    paginationController.paginationList.insert(
-      0,
-      MessageModel(
-        title: message,
-        creationDate: DateTime.now().toIso8601String(),
-        isCurrentUser: true,
-        isTextMessage: false,
-      ),
+  _addMessage(String message) async {
+    OperationReply operationReply = await APIProvider.instance.post(
+      endPoint: Res.apiSendMessage,
+      fromJson: SendMessageResponse.fromJson,
+      requestBody: {
+        "recipientId": widget.id,
+        "message": message,
+      },
     );
 
-    paginationController.update();
+    if (operationReply.isSuccess()) {
+      SendMessageResponse sendMessageResponse = operationReply.result;
+
+      MessageModel? messageModel = sendMessageResponse.messageModel;
+      if (messageModel != null) {
+        paginationController.paginationList.insert(
+          0,
+          messageModel,
+        );
+        paginationController.update();
+      } else {
+        Utils.logMessage('Can\'t Send Message to ${widget.name}');
+      }
+    } else {
+      InformationViewer.showErrorToast(msg: operationReply.message);
+    }
   }
 
   @override

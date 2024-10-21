@@ -28,10 +28,11 @@ class MessagesList extends StatelessWidget {
               child: RefreshIndicator(
                 onRefresh: messagesController.refreshApiCall,
                 child: ListView.separated(
-                  itemCount: messagesController.messages.length,
+                  itemCount: messagesController.lastMessages.length,
                   separatorBuilder: (context, index) => 10.ph,
                   itemBuilder: (context, index) => MessageCard(
-                      messageModel: messagesController.messages[index]),
+                    lastMessageModel: messagesController.lastMessages[index],
+                  ),
                 ),
               ),
             );

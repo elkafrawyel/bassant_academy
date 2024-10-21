@@ -21,7 +21,7 @@ class _TextBubbleViewState extends State<TextBubbleView> {
 
   @override
   Widget build(BuildContext context) {
-    bool isCurrentUser = widget.messageModel.isCurrentUser;
+    bool isCurrentUser = widget.messageModel.isCurrentUser();
     return Column(
       children: [
         Padding(
@@ -29,7 +29,7 @@ class _TextBubbleViewState extends State<TextBubbleView> {
           child: GestureDetector(
             onTap: () => setState(() => _showDate = !_showDate),
             child: TextMessageBubble(
-              text: widget.messageModel.title ?? '',
+              text: widget.messageModel.messageBody ?? '',
               color: isCurrentUser
                   ? Theme.of(context).primaryColor
                   : Colors.grey.shade300,
@@ -56,8 +56,7 @@ class _TextBubbleViewState extends State<TextBubbleView> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 28.0, vertical: 8.0),
               child: AppText(
-                DateHelper()
-                    .getTimeFromDateString(widget.messageModel.creationDate),
+                DateHelper().getTimeFromDateString(widget.messageModel.date),
                 color: Colors.black,
                 fontSize: 12,
               ),

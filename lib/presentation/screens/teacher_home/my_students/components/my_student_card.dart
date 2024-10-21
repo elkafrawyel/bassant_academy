@@ -13,7 +13,10 @@ class MyStudentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => const ChatScreen(),
+      onTap: () => ChatScreen(
+        name: student.name!,
+        id: student.id!,
+      ),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(18.0),

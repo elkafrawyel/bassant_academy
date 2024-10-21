@@ -6,6 +6,7 @@ import '../../app/util/util.dart';
 import '../../data/providers/storage/local_provider.dart';
 import '../screens/auth/login/login_screen.dart';
 import '../screens/home/home_screen.dart';
+import '../screens/teacher_home/teacher_home_screen.dart';
 import 'auth/auth_binding.dart';
 import 'home_screen/home_screen_binding.dart';
 
@@ -28,8 +29,14 @@ class AppConfigController extends GetxController {
       Utils.logMessage('Ever called on logged in callback');
       debugPrint('isLoggedIn =>$callback');
       if (callback) {
-        // Get.offAll(() => const TeacherHomeScreen());
-        Get.offAll(() => const HomeScreen(), binding: HomeScreenBinding());
+        bool isStudent =
+            LocalProvider().get(LocalProviderKeys.isStudent) ?? true;
+
+        if (isStudent) {
+          Get.offAll(() => const HomeScreen(), binding: HomeScreenBinding());
+        } else {
+          Get.offAll(() => const TeacherHomeScreen());
+        }
       } else {
         Get.offAll(() => const LoginScreen(), binding: AuthBinding());
       }

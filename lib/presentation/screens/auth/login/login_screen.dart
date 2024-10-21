@@ -147,6 +147,12 @@ class _LoginScreenState extends State<LoginScreen> {
             LocalProviderKeys.userId,
             authResponse.userId,
           );
+
+          await LocalProvider().save(
+            LocalProviderKeys.isStudent,
+            authResponse.isStudent,
+          );
+
           Get.find<AppConfigController>().isLoggedIn.value = true;
         }
       } else {

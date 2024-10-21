@@ -23,6 +23,9 @@ class Res {
   static const apiAboutUs = 'student/aboutus';
   static const apiDeleteAccount = 'student/delete';
   static const apiNotifications = 'Notification/getAllNotifications';
+  static const apiLastMessages = 'Messages/GetAllMessageList';
+  static const apiChatMessages = 'Messages/GetMessagesWithPagination';
+  static const apiSendMessage = 'Messages/SendMessage';
 
   //========================== Animation Assets  ===============================
   static const animApiLoading = 'assets/anim/loading.json';

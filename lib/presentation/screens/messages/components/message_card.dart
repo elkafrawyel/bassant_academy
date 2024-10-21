@@ -1,4 +1,4 @@
-import 'package:bassant_academy/data/entities/message_model.dart';
+import 'package:bassant_academy/data/entities/MessagesResponse.dart';
 import 'package:bassant_academy/data/providers/storage/local_provider.dart';
 import 'package:bassant_academy/presentation/screens/chat/chat_screen.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
@@ -7,14 +7,22 @@ import 'package:get/route_manager.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 
 class MessageCard extends StatelessWidget {
-  final MessageModel messageModel;
-  const MessageCard({super.key, required this.messageModel});
+  final LastMessageModel lastMessageModel;
+  const MessageCard({
+    super.key,
+    required this.lastMessageModel,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => const ChatScreen());
+        Get.to(
+          () => ChatScreen(
+            name: lastMessageModel.name!,
+            id: lastMessageModel.senderId!,
+          ),
+        );
       },
       child: Card(
         child: Padding(
@@ -28,14 +36,14 @@ class MessageCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const AppText(
-                        'Mahmoud Ashraf',
+                      AppText(
+                        lastMessageModel.name ?? '',
                         fontWeight: FontWeight.w800,
                         fontSize: 16,
                         maxLines: 1,
                       ),
                       AppText(
-                        messageModel.title ?? '',
+                        lastMessageModel.lastMessage ?? '',
                         maxLines: 1,
                         fontWeight: FontWeight.w200,
                         fontSize: 13,
@@ -46,7 +54,7 @@ class MessageCard extends StatelessWidget {
               ),
               AppText(
                 GetTimeAgo.parse(
-                  DateTime.parse(messageModel.creationDate ?? ''),
+                  DateTime.parse(lastMessageModel.date ?? ''),
                   locale: LocalProvider().getAppLanguage(),
                 ),
                 fontWeight: FontWeight.normal,

@@ -3,6 +3,7 @@ import 'package:bassant_academy/app/util/operation_reply.dart';
 import 'package:bassant_academy/data/entities/profile_response.dart';
 import 'package:bassant_academy/data/entities/social_links_response.dart';
 import 'package:bassant_academy/data/providers/network/api_provider.dart';
+import 'package:bassant_academy/data/providers/storage/local_provider.dart';
 import 'package:bassant_academy/presentation/screens/country/country_screen.dart';
 import 'package:get/route_manager.dart';
 
@@ -41,6 +42,7 @@ class HomeScreenController extends GeneralController {
         }
       }
     } else {
+      await LocalProvider().signOut();
       operationReply = OperationReply.failed(message: operationReply.message);
     }
   }

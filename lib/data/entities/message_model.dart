@@ -1,23 +1,25 @@
-class MessageModel {
-  String? title;
-  String? creationDate;
-  bool isCurrentUser = true;
-  bool isTextMessage = true;
+import 'package:bassant_academy/data/providers/storage/local_provider.dart';
 
+class MessageModel {
   MessageModel({
-    this.title,
-    this.creationDate,
-    this.isCurrentUser = true,
-    this.isTextMessage = true,
+    this.messageBody,
+    this.senderName,
+    this.senderID,
+    this.date,
   });
 
   MessageModel.fromJson(dynamic json) {
-    title = json['title'];
-    creationDate = json['creationDate'];
+    messageBody = json['messageBody'];
+    senderName = json['senderName'];
+    senderID = json['senderID'];
+    date = json['date'];
   }
 
-  @override
-  String toString() {
-    return creationDate ?? '';
-  }
+  String? messageBody;
+  String? senderName;
+  String? senderID;
+  String? date;
+
+  bool isCurrentUser() =>
+      LocalProvider().get(LocalProviderKeys.userId) == senderID;
 }
