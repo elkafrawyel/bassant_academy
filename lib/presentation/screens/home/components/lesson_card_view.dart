@@ -28,7 +28,10 @@ class LessonCardView extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         Get.to(
-          () => VideoPlayerScreen(lectureModel: lecture, teacherModel: teacher),
+          () => VideoPlayerScreen(
+            lectureModel: lecture,
+            teacherModel: teacher,
+          ),
         );
       },
       child: SizedBox(

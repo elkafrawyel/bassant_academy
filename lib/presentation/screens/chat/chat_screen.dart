@@ -133,6 +133,15 @@ class _ChatScreenState extends State<ChatScreen> with FCMNotificationMixin {
 
   @override
   void onNotify(RemoteMessage notification) {
-    // _addMessage(notification.notification?.title ?? 'title here');
+    print(notification.data);
+    MessageModel messageModel = MessageModel.fromJson(
+      notification.data,
+      // notification.data['message'],
+    );
+    paginationController.paginationList.insert(
+      0,
+      messageModel,
+    );
+    paginationController.update();
   }
 }

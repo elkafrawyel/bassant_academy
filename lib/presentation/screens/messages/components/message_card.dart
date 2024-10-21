@@ -20,7 +20,7 @@ class MessageCard extends StatelessWidget {
         Get.to(
           () => ChatScreen(
             name: lastMessageModel.name!,
-            id: lastMessageModel.senderId!,
+            id: lastMessageModel.id!,
           ),
         );
       },

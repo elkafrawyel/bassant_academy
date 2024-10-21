@@ -78,7 +78,7 @@ class AppHorizontalListView extends StatelessWidget {
                 separatorBuilder: (context, index) => 3.pw,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => Padding(
-                  padding: EdgeInsets.symmetric(vertical: 4.0),
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
                   child: LessonCardView(
                     lecture: data![index],
                     teacher: teacherModel,
