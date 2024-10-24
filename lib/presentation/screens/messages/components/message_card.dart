@@ -3,8 +3,11 @@ import 'package:bassant_academy/data/providers/storage/local_provider.dart';
 import 'package:bassant_academy/presentation/screens/chat/chat_screen.dart';
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get_time_ago/get_time_ago.dart';
+
+import '../../../controller/messages/messages_controller.dart';
 
 class MessageCard extends StatelessWidget {
   final LastMessageModel lastMessageModel;
@@ -16,13 +19,14 @@ class MessageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Get.to(
+      onTap: () async {
+        await Get.to(
           () => ChatScreen(
             name: lastMessageModel.name!,
             id: lastMessageModel.id!,
           ),
         );
+        Get.find<MessagesController>().refreshApiCall();
       },
       child: Card(
         child: Padding(

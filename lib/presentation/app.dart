@@ -60,7 +60,7 @@ class _AppState extends State<App> {
             builder: (context, child) {
               child = EasyLoading.init()(context, child);
               EasyLoading.instance
-                ..displayDuration = const Duration(milliseconds: 2000)
+                ..displayDuration = const Duration(milliseconds: 500)
                 ..indicatorType = EasyLoadingIndicatorType.fadingCircle
                 ..loadingStyle = EasyLoadingStyle.custom
                 ..maskType = EasyLoadingMaskType.black

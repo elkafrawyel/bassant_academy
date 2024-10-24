@@ -18,11 +18,13 @@ class ImageBubbleView extends StatefulWidget {
 class _ImageBubbleViewState extends State<ImageBubbleView> {
   @override
   Widget build(BuildContext context) {
+    bool isCurrentUser = widget.messageModel.isCurrentUser();
+
     return ImageMessageBubble(
-      image:
-          'https://hackspirit.com/wp-content/uploads/2021/06/Copy-of-Rustic-Female-Teen-Magazine-Cover.jpg',
+      image: widget.messageModel.image ?? '',
       color: Theme.of(context).primaryColor,
       tail: false,
+      isSender: isCurrentUser,
     );
   }
 }

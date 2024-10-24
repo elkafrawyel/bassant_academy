@@ -106,6 +106,7 @@ class AppCachedImage extends StatelessWidget {
               ),
               errorWidget: (context, url, error) => Container(
                 decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
                   shape: isCircular ? BoxShape.circle : BoxShape.rectangle,
                   borderRadius: isCircular
                       ? null
@@ -116,12 +117,10 @@ class AppCachedImage extends StatelessWidget {
                           bottomRight: Radius.circular(radius ?? 12),
                         ),
                   image: DecorationImage(
-                    image: const AssetImage(Res.logoImage),
-                    fit: fit ?? BoxFit.cover,
-                    colorFilter: ColorFilter.mode(
-                      Colors.grey.shade400,
-                      BlendMode.srcIn,
+                    image: const AssetImage(
+                      Res.logoImage,
                     ),
+                    fit: fit ?? BoxFit.contain,
                   ),
                 ),
               ),

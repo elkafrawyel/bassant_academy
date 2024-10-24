@@ -3,14 +3,18 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:bassant_academy/app/util/util.dart';
+import 'package:bassant_academy/data/entities/message_model.dart';
+import 'package:bassant_academy/presentation/controller/messages/messages_controller.dart';
 import 'package:bassant_academy/presentation/controller/notifications/notifications_controller.dart';
-import 'package:bassant_academy/presentation/screens/notifications/notifications_screen.dart';
+import 'package:bassant_academy/presentation/screens/chat/chat_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:path_provider/path_provider.dart';
+
+import '../../../presentation/screens/notifications/notifications_screen.dart';
 
 class NotificationsService {
   static const String _channelId = 'com.bassant.academy';
@@ -138,7 +142,7 @@ class NotificationsService {
       bigPictureStyleInformation = BigPictureStyleInformation(
         FilePathAndroidBitmap(imagePath),
         hideExpandedLargeIcon: true,
-        contentTitle: '<b>$title</b>',
+        contentTitle: title,
         htmlFormatContentTitle: true,
         summaryText: body,
         htmlFormatSummaryText: true,
@@ -183,11 +187,19 @@ class NotificationsService {
 
     // ? todo : chack if the user is opening the screen to just
     // ? update the ui or data
-    if (Get.isRegistered<NotificationsController>()) {
+    Utils.logMessage('============>${Get.currentRoute}');
+    if (Get.currentRoute == '/NotificationsScreen') {
       Get.find<NotificationsController>().refreshApiCall(loading: false);
+    } else if (Get.currentRoute == '/ChatScreen') {
+      /// handle notification on screen by mixin
+      Utils.logMessage('ChatScreen New Notification');
+    } else if (Get.currentRoute == '/MessagesScreen' ||
+        Get.currentRoute == '/TeacherHomeScreen') {
+      Get.find<MessagesController>().refreshApiCall();
     } else {
       // ? here the user is not opening the screen
       // ? show a simple notification.
+
       String? imageUrl = _getImageUrl(remoteMessage.notification!);
       showSimpleNotification(
         title: remoteMessage.notification!.title!,
@@ -199,15 +211,23 @@ class NotificationsService {
   }
 
   static void _onNotificationTap(NotificationResponse notificationResponse) {
-    // ? handles the click of the notification
-    // ? opened from _handleForegroundRemoteMessage()
     Utils.logMessage('Foreground Notification Tapped.');
     if (notificationResponse.payload != null) {
       Map<String, dynamic> data = jsonDecode(notificationResponse.payload!);
       Utils.logMessage(data.toString());
-
-      /// just navigate to the screen and handle loading data their
-      Get.to(() => const NotificationsScreen());
+      if (data['isNormalNotification'] == "true") {
+        Utils.logMessage('This is normal notification');
+        Get.to(() => const NotificationsScreen());
+      } else {
+        Utils.logMessage('This is chat message notification');
+        MessageModel messageModel = MessageModel.fromJson(data);
+        Get.to(
+          () => ChatScreen(
+            name: messageModel.senderName!,
+            id: messageModel.senderID!,
+          ),
+        );
+      }
     }
   }
 }

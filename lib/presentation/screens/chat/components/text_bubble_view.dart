@@ -32,16 +32,16 @@ class _TextBubbleViewState extends State<TextBubbleView> {
               text: widget.messageModel.messageBody ?? '',
               color: isCurrentUser
                   ? Theme.of(context).primaryColor
-                  : Colors.grey.shade300,
+                  : const Color(0xffE0F1FF),
               tail: true,
               isSender: isCurrentUser,
-              textStyle: const TextStyle(
-                color: Colors.black,
-                fontSize: 16,
+              textStyle: TextStyle(
+                color: isCurrentUser ? Colors.white : const Color(0xff424B59),
+                fontSize: 14,
               ),
               linkStyle: const TextStyle(
                 color: Colors.black,
-                fontSize: 16,
+                fontSize: 14,
               ),
             ),
           ),
@@ -50,8 +50,8 @@ class _TextBubbleViewState extends State<TextBubbleView> {
           offstage: !_showDate,
           child: Align(
             alignment: isCurrentUser
-                ? AlignmentDirectional.centerEnd
-                : AlignmentDirectional.centerStart,
+                ? AlignmentDirectional.centerStart
+                : AlignmentDirectional.centerEnd,
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 28.0, vertical: 8.0),

@@ -49,5 +49,10 @@
 		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
+		<key>NSCameraUsageDescription</key>
+        <string>Access to photos is needed to allow users to send images to each others on chat messages</string>
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>Access to photos is needed to allow users to send images to each others on chat messages</string>
+
 	</dict>
 </plist>

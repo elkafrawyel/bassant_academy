@@ -20,7 +20,7 @@ class MessagesController extends GeneralController {
   }
 
   Future _loadMessages() async {
-    operationReply = OperationReply.loading();
+    // operationReply = OperationReply.loading();
     operationReply = await APIProvider.instance.get(
       endPoint: Res.apiLastMessages,
       fromJson: LastMessagesResponse.fromJson,

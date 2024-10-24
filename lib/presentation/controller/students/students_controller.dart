@@ -23,7 +23,7 @@ class StudentsController extends GeneralController {
   }
 
   Future _loadStudents() async {
-    operationReply = OperationReply.loading();
+    // operationReply = OperationReply.loading();
     operationReply = await APIProvider.instance.get(
       endPoint: Res.apiMyStudents,
       fromJson: MyStudentsResponse.fromJson,

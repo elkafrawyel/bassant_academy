@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
+import '../../../../../app/res/res.dart';
 import '../../../../widgets/app_widgets/app_cached_image.dart';
 
 const double imageRadius = 16;
@@ -237,8 +238,8 @@ class _DetailScreenState extends State<_DetailScreen> {
                     maxScale: PhotoViewComputedScale.contained * 4,
                     errorBuilder: (context, object, st) {
                       return Image.asset(
-                        'assets/images/placeholder.png',
-                        fit: BoxFit.cover,
+                        Res.logoImage,
+                        fit: BoxFit.contain,
                       );
                     });
               },

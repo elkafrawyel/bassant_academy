@@ -62,7 +62,7 @@ class TypeMessageBar extends StatelessWidget {
     this.messageBarColor = const Color(0xffF4F4F5),
     this.sendButtonColor = Colors.blue,
     this.messageBarHintText = "Type your message here",
-    this.messageBarHintStyle = const TextStyle(fontSize: 16),
+    this.messageBarHintStyle = const TextStyle(fontSize: 14),
     this.textFieldTextStyle = const TextStyle(color: Colors.black),
     this.onTextChanged,
     this.onSend,
@@ -125,69 +125,71 @@ class TypeMessageBar extends StatelessWidget {
               children: <Widget>[
                 ...actions,
                 Expanded(
-                  child: TextField(
-                    /// to make the text field allow the copy, and paste operations
-                    contextMenuBuilder: (context, editableTextState) {
-                      final List<ContextMenuButtonItem> buttonItems =
-                          editableTextState.contextMenuButtonItems;
-                      buttonItems
-                          .removeWhere((ContextMenuButtonItem buttonItem) {
-                        return buttonItem.type == ContextMenuButtonType.copy;
-                      });
-                      return AdaptiveTextSelectionToolbar.buttonItems(
-                        anchors: editableTextState.contextMenuAnchors,
-                        buttonItems: buttonItems,
-                      );
-                    },
-                    controller: _textController,
-                    keyboardType: TextInputType.multiline,
-                    textCapitalization: TextCapitalization.sentences,
-                    minLines: 1,
-                    maxLines: 3,
-                    onChanged: onTextChanged,
-                    style: textFieldTextStyle,
-                    decoration: InputDecoration(
-                      hintText: messageBarHintText,
-                      hintMaxLines: 1,
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 10),
-                      hintStyle: messageBarHintStyle,
-                      fillColor: Colors.white,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                        borderSide: const BorderSide(
-                          color: Colors.white,
-                          width: 0.2,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: TextField(
+                      /// to make the text field allow the copy, and paste operations
+                      contextMenuBuilder: (context, editableTextState) {
+                        final List<ContextMenuButtonItem> buttonItems =
+                            editableTextState.contextMenuButtonItems;
+                        buttonItems
+                            .removeWhere((ContextMenuButtonItem buttonItem) {
+                          return buttonItem.type == ContextMenuButtonType.copy;
+                        });
+                        return AdaptiveTextSelectionToolbar.buttonItems(
+                          anchors: editableTextState.contextMenuAnchors,
+                          buttonItems: buttonItems,
+                        );
+                      },
+                      controller: _textController,
+                      keyboardType: TextInputType.multiline,
+                      textCapitalization: TextCapitalization.sentences,
+                      minLines: 1,
+                      maxLines: 3,
+                      onChanged: onTextChanged,
+                      style: textFieldTextStyle,
+                      decoration: InputDecoration(
+                        hintText: messageBarHintText,
+                        hintMaxLines: 1,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 8.0,
                         ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                        borderSide: const BorderSide(
-                          color: Colors.black26,
-                          width: 0.2,
+                        hintStyle: messageBarHintStyle,
+                        fillColor: Colors.white,
+                        filled: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          borderSide: const BorderSide(
+                            color: Colors.white,
+                            width: 0.2,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          borderSide: const BorderSide(
+                            color: Colors.black26,
+                            width: 0.2,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: InkWell(
-                    child: Icon(
-                      Icons.send,
-                      color: sendButtonColor,
-                      size: 24,
-                    ),
-                    onTap: () {
-                      if (_textController.text.trim() != '') {
-                        if (onSend != null) {
-                          onSend!(_textController.text.trim());
-                        }
-                        _textController.text = '';
-                      }
-                    },
+                InkWell(
+                  child: Icon(
+                    Icons.send,
+                    color: sendButtonColor,
+                    size: 24,
                   ),
+                  onTap: () {
+                    if (_textController.text.trim() != '') {
+                      if (onSend != null) {
+                        onSend!(_textController.text.trim());
+                      }
+                      _textController.text = '';
+                    }
+                  },
                 ),
               ],
             ),

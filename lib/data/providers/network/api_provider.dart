@@ -91,12 +91,13 @@ class APIProvider {
     List<MapEntry<String, File>> files = const [],
     Function(double percentage)? onUploadProgress,
     Function(double percentage)? onDownloadProgress,
+    bool forceFormData = false,
   }) async {
     if (await NetworkHelper.isConnected()) {
       try {
         bool haveFiles = false;
         FormData formData = FormData.fromMap({});
-        if (files.isNotEmpty) {
+        if (files.isNotEmpty || forceFormData) {
           haveFiles = true;
           formData = FormData.fromMap(requestBody);
           formData.files.addAll(files

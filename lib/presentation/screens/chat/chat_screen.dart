@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bassant_academy/app/util/information_viewer.dart';
 import 'package:bassant_academy/app/util/operation_reply.dart';
 import 'package:bassant_academy/app/util/util.dart';
@@ -9,6 +11,7 @@ import 'package:bassant_academy/presentation/screens/chat/components/message_typ
 import 'package:bassant_academy/presentation/widgets/app_widgets/app_text.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import '../../../app/config/notifications/notification_mixin.dart';
@@ -16,12 +19,14 @@ import '../../../app/res/res.dart';
 import '../../../data/entities/message_model.dart';
 import '../../controller/my_controllers/pagination_controller/data/config_data.dart';
 import '../../controller/my_controllers/pagination_controller/pagination_controller.dart';
+import '../../widgets/app_widgets/app_image_picker_dialog.dart';
 import '../../widgets/app_widgets/paginated_views/app_paginated_grouped_listview.dart';
 import 'components/text_bubble_view.dart';
 
 class ChatScreen extends StatefulWidget {
   final String name;
   final String id;
+
   const ChatScreen({
     super.key,
     required this.name,
@@ -74,7 +79,7 @@ class _ChatScreenState extends State<ChatScreen> with FCMNotificationMixin {
                   ? 'اكتب رسالتك هنا'
                   : 'Type your message here',
               sendButtonColor: Theme.of(context).primaryColor,
-              onSend: (String message) => _addMessage(message),
+              onSend: (String message) => _addMessage(message: message),
               actions: [
                 InkWell(
                   child: Icon(
@@ -82,7 +87,14 @@ class _ChatScreenState extends State<ChatScreen> with FCMNotificationMixin {
                     color: Theme.of(context).primaryColor,
                     size: 24,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    showAppImageDialog(
+                      context: context,
+                      onFilePicked: (File? file) {
+                        _addMessage(file: file);
+                      },
+                    );
+                  },
                 ),
                 // Padding(
                 //   padding: const EdgeInsets.only(left: 8, right: 8),
@@ -103,16 +115,33 @@ class _ChatScreenState extends State<ChatScreen> with FCMNotificationMixin {
     );
   }
 
-  _addMessage(String message) async {
+  _addMessage({String? message, File? file}) async {
+    if (message == null && file == null) {
+      return;
+    }
     OperationReply operationReply = await APIProvider.instance.post(
-      endPoint: Res.apiSendMessage,
-      fromJson: SendMessageResponse.fromJson,
-      requestBody: {
-        "recipientId": widget.id,
-        "message": message,
-      },
-    );
+        endPoint: Res.apiSendMessage,
+        fromJson: SendMessageResponse.fromJson,
+        forceFormData: true,
+        requestBody: {
+          "recipientId": widget.id,
+          "message": message,
+        },
+        files: [
+          if (file != null) MapEntry('image', file),
+        ],
+        onUploadProgress: (double progress) {
+          if (file != null) {
+            EasyLoading.showProgress(
+              progress,
+              status: 'uploading'.tr,
+            );
+          }
+        });
 
+    if (file != null) {
+      EasyLoading.dismiss();
+    }
     if (operationReply.isSuccess()) {
       SendMessageResponse sendMessageResponse = operationReply.result;
 

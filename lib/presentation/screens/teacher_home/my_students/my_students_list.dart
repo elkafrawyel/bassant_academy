@@ -30,12 +30,15 @@ class _MyStudentsListState extends State<MyStudentsList> {
             ),
             child: RefreshIndicator(
               onRefresh: studentsController.refreshApiCall,
-              child: ListView.separated(
-                separatorBuilder: (context, index) => 10.ph,
-                itemBuilder: (context, index) => MyStudentCard(
-                  student: studentsController.students[index],
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => 10.ph,
+                  itemBuilder: (context, index) => MyStudentCard(
+                    student: studentsController.students[index],
+                  ),
+                  itemCount: studentsController.students.length,
                 ),
-                itemCount: studentsController.students.length,
               ),
             ),
           );
