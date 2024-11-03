@@ -51,7 +51,7 @@ void main() async {
   runApp(const App());
 }
 
-setUpSecureMode({required bool enabled}) async {
+Future setUpSecureMode({required bool enabled}) async {
   if (enabled) {
     ///flutter_windowmanager
     if (Platform.isAndroid) {
