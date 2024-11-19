@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     (subject) => AppHorizontalListView(
                                       title: subject.name ?? '',
                                       data: subject.lectures!,
-                                      teacherModel: subject.teacher!,
+                                      teacherModel: subject.teacher,
                                     ),
                                   )
                                   .toList(),

@@ -13,14 +13,14 @@ import '../../video_player_screen/video_player_screen.dart';
 
 class LessonCardView extends StatelessWidget {
   final LectureModel lecture;
-  final TeacherModel teacher;
+  final TeacherModel? teacher;
 
   static double height = 230;
 
   const LessonCardView({
     super.key,
     required this.lecture,
-    required this.teacher,
+    this.teacher,
   });
 
   @override
@@ -89,7 +89,7 @@ class LessonCardView extends StatelessWidget {
                         height: 20,
                       ),
                       5.pw,
-                      AppText(lecture.duration ?? ''),
+                      AppText(lecture?.duration ?? ''),
                     ],
                   ),
                 ),

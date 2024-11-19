@@ -56,7 +56,8 @@ class SubjectWithLecturesModel {
   SubjectWithLecturesModel.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
-    teacher = TeacherModel.fromJson(json['teacher']);
+    teacher =
+        json['teacher'] != null ? TeacherModel.fromJson(json['teacher']) : null;
     if (json['lectures'] != null) {
       lectures = [];
       json['lectures'].forEach((v) {

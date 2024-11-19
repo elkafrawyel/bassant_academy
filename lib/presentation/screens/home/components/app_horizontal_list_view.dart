@@ -9,14 +9,14 @@ import 'lesson_card_view.dart';
 class AppHorizontalListView extends StatelessWidget {
   final String title;
   final List<LectureModel>? data;
-  final TeacherModel teacherModel;
+  final TeacherModel? teacherModel;
   final Function()? onSeeAllClicked;
 
   const AppHorizontalListView({
     super.key,
     required this.title,
     required this.data,
-    required this.teacherModel,
+    this.teacherModel,
     this.onSeeAllClicked,
   });
 
